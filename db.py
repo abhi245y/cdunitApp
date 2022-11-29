@@ -32,10 +32,21 @@ def addDataToDB(colName, data):
         cdUnitDB[colName].insert_many(data)
         return True, "Done"
     except Exception as e:
-        return False, "Error: "+str(e)
+        return False, "Error: " + str(e)
+
+
+def sortAndGetData(colName, key, value):
+    query = {key: value}
+    return cdUnitDB[colName].find(query)
+
+
+def getConfig():
+    return cdUnitDB["dataConfig"].find_one(), cdUnitDB["messengersDetails"].find()
 
 
 if __name__ == "__main__":
-    initializeDataBase()
+    for c in sortAndGetData("collegeList", "Route", "Local I"):
+        print(c)
+    # initializeDataBase()
     # for d in cdUnitDB["collegeList"].find():
     #     print(d.items())

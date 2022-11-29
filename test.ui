@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1282</width>
-    <height>891</height>
+    <width>1059</width>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -222,6 +222,26 @@
           </layout>
          </item>
          <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>20</number>
+           </property>
+           <item>
+            <widget class="QCheckBox" name="ticBoxNillStatment">
+             <property name="text">
+              <string>Check If Bundle Is Nill</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <widget class="Line" name="line_5">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -317,11 +337,28 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="btnSubmit">
-      <property name="text">
-       <string>Submit</string>
+     <layout class="QHBoxLayout" name="bottomBtnsLayout">
+      <property name="leftMargin">
+       <number>0</number>
       </property>
-     </widget>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="btnSubmit">
+        <property name="text">
+         <string>Submit</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnClearTable">
+        <property name="text">
+         <string>Clear Table</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -330,7 +367,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1282</width>
+     <width>1059</width>
      <height>23</height>
     </rect>
    </property>
