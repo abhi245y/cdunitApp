@@ -189,6 +189,9 @@ class Ui_AddBundleDetails(object):
 
         self.retranslateUi(AddBundleDetails)
 
+        icon = QIcon()
+        icon.addFile(u"data/icon.png", QSize(), QIcon.Normal, QIcon.Off)
+        AddBundleDetails.setWindowIcon(icon)
         header = self.twBundleDetails.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
