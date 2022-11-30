@@ -116,6 +116,12 @@ class Ui_AddBundleDetails(object):
         self.leQpCode.setObjectName("leQpCode")
         self.verticalLayout_4.addWidget(self.leQpCode)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
+
+        # self.leBundleMulti = QtWidgets.QLineEdit(self.gbSlipDetailsGroup)
+        # self.leBundleMulti.setMaxLength(2)
+        # self.leBundleMulti.setObjectName("leBundleMulti")
+        # self.horizontalLayout.addWidget(self.leBundleMulti)
+
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setContentsMargins(0, 20, -1, -1)
         self.verticalLayout.setSpacing(6)
@@ -233,10 +239,10 @@ class Ui_AddBundleDetails(object):
         msgBox.exec_()
 
     def deleteSelectedRow(self, selected):
-        print("Invoked", self.twBundleDetails.selectionModel().selection())
+        # print("Invoked", self.twBundleDetails.selectionModel().selection())
         for ix in self.twBundleDetails.selectionModel().selection():
             for index in ix.indexes():
-                print(index.row())
+                # print(index.row())
                 self.twBundleDetails.removeRow(index.row())
             # print('Selected Cell Location Row: {0}, Column: {1}'.format(ix.row(), ix.column()))
 
@@ -244,6 +250,7 @@ class Ui_AddBundleDetails(object):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             if self.cbCollegeList.currentText() and self.cbRouteList.currentText() and self.cbMessenger.currentText() and self.leQpCode.text() != "":
                 self.addDataToTable()
+                self.leQpCode.clear()
             else:
                 self.showMessage(QMessageBox.Warning, "Please Enter details in all fields", "Error")
 
@@ -323,6 +330,7 @@ class Ui_AddBundleDetails(object):
         slipDate = self.deBundleSlipDate.date().toString()
         messengerName = self.cbMessenger.currentText()
         clgName = self.cbCollegeList.currentText()
+        bundlesMulti = int(self.leBundleMulti.text())
 
         isNilCheckBox = QTableWidgetItem()
         isNilCheckBox.setTextAlignment(Qt.AlignHCenter)
@@ -335,6 +343,25 @@ class Ui_AddBundleDetails(object):
         self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
         self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
         self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
+
+        # if bundlesMulti <=1:
+        #     print('Normal adding', bundlesMulti)
+        #     self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
+        #     self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
+        #     self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
+        #     self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
+        #     self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
+        #     self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
+        # elif bundlesMulti >1:
+        #     i = 1
+        #     print("Multi adding")
+        #     multiData = []
+        #     while i<=bundlesMulti:
+        #         multiData.append([{"qpSeries": qpSeries, "qpCode": qpCode, "isNil": bool(isNilCheckBox),
+        #                       "receivedDate": slipDate, "messenger": messengerName,
+        #                       "collegeName": clgName}])
+        #     print(multiData)
+        #     print(i, bundlesMulti)
 
     def retranslateUi(self, AddBundleDetails):
         _translate = QtCore.QCoreApplication.translate
@@ -357,6 +384,12 @@ class Ui_AddBundleDetails(object):
         self.leQpCode.setValidator(QIntValidator(1, 9999))
         self.leQpCode.setMaxLength(4)
         self.leQpCode.setPlaceholderText("Enter QP Code")
+
+        # self.leBundleMulti.setStatusTip(_translate("AddBundleDetails", "Enter No of Bundles with same code"))
+        # self.leBundleMulti.setValidator(QIntValidator(1, 99))
+        # self.leBundleMulti.setMaxLength(2)
+        # self.leBundleMulti.setPlaceholderText("Enter No of Bundles")
+
         self.btnAddQpCode.setText(_translate("AddBundleDetails", "Add To List"))
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         item = self.twBundleDetails.horizontalHeaderItem(0)
@@ -383,6 +416,6 @@ if __name__ == "__main__":
     AddBundleDetails = QtWidgets.QMainWindow()
     ui = Ui_AddBundleDetails()
     ui.setupUi(AddBundleDetails)
-    # apply_stylesheet(app, theme='dark_teal.xml')
+    apply_stylesheet(app, theme='dark_teal.xml')
     AddBundleDetails.show()
     sys.exit(app.exec_())
