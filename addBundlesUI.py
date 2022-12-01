@@ -117,10 +117,19 @@ class Ui_AddBundleDetails(object):
         self.verticalLayout_4.addWidget(self.leQpCode)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
 
-        # self.leBundleMulti = QtWidgets.QLineEdit(self.gbSlipDetailsGroup)
-        # self.leBundleMulti.setMaxLength(2)
-        # self.leBundleMulti.setObjectName("leBundleMulti")
-        # self.horizontalLayout.addWidget(self.leBundleMulti)
+        self.vlBundleMulti = QtWidgets.QVBoxLayout()
+        self.vlBundleMulti.setObjectName("vlBundleMulti")
+        self.leBundleMulti = QtWidgets.QLineEdit(self.gbSlipDetailsGroup)
+        self.leBundleMulti.setMaxLength(2)
+        self.leBundleMulti.setObjectName("leBundleMulti")
+
+        self.vlBundleMulti.addWidget(self.leBundleMulti)
+
+        self.labelBundleMulti = QtWidgets.QLabel(self.gbSlipDetailsGroup)
+        self.labelBundleMulti.setObjectName("labelBundleMulti")
+        self.vlBundleMulti.addWidget(self.labelBundleMulti)
+
+        self.horizontalLayout.addWidget(self.vlBundleMulti)
 
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setContentsMargins(0, 20, -1, -1)
@@ -322,8 +331,8 @@ class Ui_AddBundleDetails(object):
         self.cbRouteList.addItems(configs['routes'])
 
     def addDataToTable(self):
-        rowPosition = self.twBundleDetails.rowCount()
-        self.twBundleDetails.insertRow(rowPosition)
+        # rowPosition = self.twBundleDetails.rowCount()
+        # self.twBundleDetails.insertRow(rowPosition)
 
         qpSeries = self.cbQpSeries.currentText()
         qpCode = self.leQpCode.text()
@@ -337,12 +346,25 @@ class Ui_AddBundleDetails(object):
         isNilCheckBox.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
         isNilCheckBox.setCheckState(self.ticBoxNillStatment.checkState())
 
-        self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
-        self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
-        self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
-        self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
-        self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
-        self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
+        # self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
+        # self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
+        # self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
+        # self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
+        # self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
+        # self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName)) clear
+
+        i = 1
+        while i<=bundlesMulti:
+            rowPosition = self.twBundleDetails.rowCount()
+
+            self.twBundleDetails.setRowCount(rowPosition + 1)
+            self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
+            self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
+            self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
+            self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
+            self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
+            self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
+            i += 1
 
         # if bundlesMulti <=1:
         #     print('Normal adding', bundlesMulti)
@@ -378,18 +400,18 @@ class Ui_AddBundleDetails(object):
         self.labelQpSeriesList.setText(_translate("AddBundleDetails", "Select QP Series"))
         self.cbQpSeries.setAccessibleName(_translate("AddBundleDetails", "QP Series"))
         self.cbQpSeries.setPlaceholderText(_translate("AddBundleDetails", "Test"))
-        self.labelQpCode.setText(_translate("AddBundleDetails", "Select QP Code"))
+        self.labelQpCode.setText(_translate("AddBundleDetails", "Enter QP Code"))
         self.leQpCode.setStatusTip(_translate("AddBundleDetails", "Enter QP Code"))
         self.ticBoxNillStatment.setText(_translate("AddBundleDetails", "Check If Bundle Is Nil"))
         self.leQpCode.setValidator(QIntValidator(1, 9999))
         self.leQpCode.setMaxLength(4)
         self.leQpCode.setPlaceholderText("Enter QP Code")
 
-        # self.leBundleMulti.setStatusTip(_translate("AddBundleDetails", "Enter No of Bundles with same code"))
-        # self.leBundleMulti.setValidator(QIntValidator(1, 99))
-        # self.leBundleMulti.setMaxLength(2)
-        # self.leBundleMulti.setPlaceholderText("Enter No of Bundles")
-
+        self.leBundleMulti.setStatusTip(_translate("AddBundleDetails", "Enter No of Bundles with same code"))
+        self.leBundleMulti.setValidator(QIntValidator(1, 99))
+        self.leBundleMulti.setMaxLength(2)
+        self.leBundleMulti.setPlaceholderText("Enter No of Bundles")
+        
         self.btnAddQpCode.setText(_translate("AddBundleDetails", "Add To List"))
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         item = self.twBundleDetails.horizontalHeaderItem(0)
