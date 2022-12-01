@@ -45,8 +45,16 @@ def getConfig():
 
 
 if __name__ == "__main__":
-    for c in sortAndGetData("collegeList", "Route", "Local I"):
-        print(c)
+    pass
+    # from datetime import datetime  
+
+    # for doc in cdUnitDB["bundleDetails"].find():
+    #     cdUnitDB["bundleDetails"].find_one_and_update(doc,
+    # { '$set': { "isNil" : False} })
+    # cdUnitDB["bundleDetails"].find_one_and_update({'collegeName':"UIT Yeroor, Govt. Higher Secondary School Campus,  Yeroor, Near Anchal, Kollam"},
+    # { '$set': { "receivedDate" : datetime.strptime("Fri Oct 14 2022", '%a %b %d %Y')} })
+    # for c in sortAndGetData("collegeList", "Route", "Local I"):
+    #     print(c)
     # initializeDataBase()
     # for d in cdUnitDB["collegeList"].find():
     #     print(d.items())
