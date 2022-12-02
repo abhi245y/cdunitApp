@@ -15,7 +15,7 @@ import db
 class Ui_AddBundleDetails(object):
     def setupUi(self, AddBundleDetails):
         AddBundleDetails.setObjectName("AddBundleDetails")
-        AddBundleDetails.resize(1100, 891)
+        AddBundleDetails.resize(902, 534)
         self.centralwidget = QtWidgets.QWidget(AddBundleDetails)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -116,21 +116,16 @@ class Ui_AddBundleDetails(object):
         self.leQpCode.setObjectName("leQpCode")
         self.verticalLayout_4.addWidget(self.leQpCode)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
-
-        self.vlBundleMulti = QtWidgets.QVBoxLayout()
-        self.vlBundleMulti.setObjectName("vlBundleMulti")
-        self.leBundleMulti = QtWidgets.QLineEdit(self.gbSlipDetailsGroup)
-        self.leBundleMulti.setMaxLength(2)
-        self.leBundleMulti.setObjectName("leBundleMulti")
-
-        self.vlBundleMulti.addWidget(self.leBundleMulti)
-
-        self.labelBundleMulti = QtWidgets.QLabel(self.gbSlipDetailsGroup)
-        self.labelBundleMulti.setObjectName("labelBundleMulti")
-        self.vlBundleMulti.addWidget(self.labelBundleMulti)
-
-        self.horizontalLayout.addWidget(self.vlBundleMulti)
-
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setContentsMargins(-1, -1, 0, -1)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        spacerItem = QtWidgets.QSpacerItem(40, 25, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_3.addItem(spacerItem)
+        self.sbBundleMulti = QtWidgets.QSpinBox(self.gbSlipDetailsGroup)
+        self.sbBundleMulti.setProperty("value", 1)
+        self.sbBundleMulti.setObjectName("sbBundleMulti")
+        self.verticalLayout_3.addWidget(self.sbBundleMulti)
+        self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setContentsMargins(0, 20, -1, -1)
         self.verticalLayout.setSpacing(6)
@@ -186,16 +181,16 @@ class Ui_AddBundleDetails(object):
         self.btnSubmit = QtWidgets.QPushButton(self.centralwidget)
         self.btnSubmit.setObjectName("btnSubmit")
         self.bottomBtnsLayout.addWidget(self.btnSubmit)
-        self.btnClearTable = QtWidgets.QPushButton(self.centralwidget)
-        self.btnClearTable.setObjectName("btnClearTable")
-        self.bottomBtnsLayout.addWidget(self.btnClearTable)
         self.btnDeleteSelectedRow = QtWidgets.QPushButton(self.centralwidget)
         self.btnDeleteSelectedRow.setObjectName("btnDeleteSelectedRow")
         self.bottomBtnsLayout.addWidget(self.btnDeleteSelectedRow)
+        self.btnClearTable = QtWidgets.QPushButton(self.centralwidget)
+        self.btnClearTable.setObjectName("btnClearTable")
+        self.bottomBtnsLayout.addWidget(self.btnClearTable)
         self.verticalLayout_10.addLayout(self.bottomBtnsLayout)
         AddBundleDetails.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(AddBundleDetails)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1059, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 902, 23))
         self.menubar.setObjectName("menubar")
         AddBundleDetails.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(AddBundleDetails)
@@ -204,6 +199,7 @@ class Ui_AddBundleDetails(object):
 
         self.retranslateUi(AddBundleDetails)
 
+        self.deBundleSlipDate.setDateTime(QtCore.QDateTime.currentDateTime())
         icon = QIcon()
         icon.addFile(u"data/icon.png", QSize(), QIcon.Normal, QIcon.Off)
         AddBundleDetails.setWindowIcon(icon)
@@ -247,7 +243,7 @@ class Ui_AddBundleDetails(object):
         msgBox.buttonClicked.connect(self.popUpResponse)
         msgBox.exec_()
 
-    def deleteSelectedRow(self, selected):
+    def deleteSelectedRow(self):
         # print("Invoked", self.twBundleDetails.selectionModel().selection())
         for ix in self.twBundleDetails.selectionModel().selection():
             for index in ix.indexes():
@@ -260,6 +256,7 @@ class Ui_AddBundleDetails(object):
             if self.cbCollegeList.currentText() and self.cbRouteList.currentText() and self.cbMessenger.currentText() and self.leQpCode.text() != "":
                 self.addDataToTable()
                 self.leQpCode.clear()
+                self.sbBundleMulti.setValue(1)
             else:
                 self.showMessage(QMessageBox.Warning, "Please Enter details in all fields", "Error")
 
@@ -339,19 +336,12 @@ class Ui_AddBundleDetails(object):
         slipDate = self.deBundleSlipDate.date().toString()
         messengerName = self.cbMessenger.currentText()
         clgName = self.cbCollegeList.currentText()
-        bundlesMulti = int(self.leBundleMulti.text())
+        bundlesMulti = self.sbBundleMulti.value()
 
         isNilCheckBox = QTableWidgetItem()
         isNilCheckBox.setTextAlignment(Qt.AlignHCenter)
         isNilCheckBox.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
         isNilCheckBox.setCheckState(self.ticBoxNillStatment.checkState())
-
-        # self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
-        # self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
-        # self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
-        # self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
-        # self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
-        # self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName)) clear
 
         i = 1
         while i<=bundlesMulti:
@@ -406,12 +396,6 @@ class Ui_AddBundleDetails(object):
         self.leQpCode.setValidator(QIntValidator(1, 9999))
         self.leQpCode.setMaxLength(4)
         self.leQpCode.setPlaceholderText("Enter QP Code")
-
-        self.leBundleMulti.setStatusTip(_translate("AddBundleDetails", "Enter No of Bundles with same code"))
-        self.leBundleMulti.setValidator(QIntValidator(1, 99))
-        self.leBundleMulti.setMaxLength(2)
-        self.leBundleMulti.setPlaceholderText("Enter No of Bundles")
-        
         self.btnAddQpCode.setText(_translate("AddBundleDetails", "Add To List"))
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         item = self.twBundleDetails.horizontalHeaderItem(0)

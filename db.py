@@ -2,7 +2,7 @@ import json
 
 import pymongo
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+client = pymongo.MongoClient("mongodb://192.168.29.190:27017/")
 
 cdUnitDB = client["cd_unit"]
 

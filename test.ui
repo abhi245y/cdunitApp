@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1059</width>
-    <height>682</height>
+    <width>902</width>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,7 +162,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
@@ -202,7 +202,7 @@
            <item>
             <widget class="QLabel" name="labelQpCode">
              <property name="text">
-              <string>Select QP Code</string>
+              <string>Enter QP Code</string>
              </property>
             </widget>
            </item>
@@ -216,6 +216,36 @@
              </property>
              <property name="placeholderText">
               <string>Enter QP Code</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <spacer name="vSpacerBundleMulti">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="sbBundleMulti">
+             <property name="value">
+              <number>1</number>
              </property>
             </widget>
            </item>
@@ -321,6 +351,11 @@
       </column>
       <column>
        <property name="text">
+        <string>Nil</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Bundle Slip Date</string>
        </property>
       </column>
@@ -352,6 +387,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="btnDeleteSelectedRow">
+        <property name="text">
+         <string>Delete Selected Row</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btnClearTable">
         <property name="text">
          <string>Clear Table</string>
@@ -367,7 +409,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1059</width>
+     <width>902</width>
      <height>23</height>
     </rect>
    </property>
