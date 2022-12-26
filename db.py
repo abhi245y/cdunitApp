@@ -1,8 +1,27 @@
 import json
 
 import pymongo
+import os
 
-client = pymongo.MongoClient("mongodb://192.168.29.190:27017/")
+filename = 'db_config.json'
+
+if not os.path.exists(filename):
+    # Create the dictionary with the desired keys and values
+    data = {
+        'address': 'localhost',
+        'port': '27017'
+    }
+    
+    # Write the dictionary to a JSON file
+    with open(filename, 'w') as f:
+        json.dump(data, f)
+
+with open(filename, 'r') as f:
+    db_config = json.load(f)
+    address = db_config['address']+':'+db_config['port']
+
+
+client = pymongo.MongoClient("mongodb://{}/".format(address))
 
 cdUnitDB = client["cd_unit"]
 
@@ -47,11 +66,15 @@ def getConfig():
 if __name__ == "__main__":
     pass
     # from datetime import datetime  
-
-    # for doc in cdUnitDB["bundleDetails"].find():
-    #     cdUnitDB["bundleDetails"].find_one_and_update(doc,
-    # { '$set': { "isNil" : False} })
-    # cdUnitDB["bundleDetails"].find_one_and_update({'collegeName':"UIT Yeroor, Govt. Higher Secondary School Campus,  Yeroor, Near Anchal, Kollam"},
+    # array = []
+    # for cursor in cdUnitDB["bundleDetails"].find({'collegeName':"Mannam NSS College Edamulakkal, Anchal, Kollam"}):
+    #     array.append(cursor)
+    # print(len(array))
+    # for doc in cdUnitDB["bundleDetails"].find({'collegeName':"Milad-E-Sherief Memorial College Kayamkulam", 'messenger': 'Viju C'}):
+        # print(doc)
+        # cdUnitDB["bundleDetails"].find_one_and_update(doc,
+        # { '$set': {"receivedDate" : datetime.strptime("Fri Dec 23 2022", '%a %b %d %Y')} })
+    # cdUnitDB["bundleDetails"].find_one_and_update({'collegeName':"Milad-E-Sherief Memorial College Kayamkulam"},
     # { '$set': { "receivedDate" : datetime.strptime("Fri Oct 14 2022", '%a %b %d %Y')} })
     # for c in sortAndGetData("collegeList", "Route", "Local I"):
     #     print(c)

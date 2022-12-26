@@ -6,8 +6,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from datetime import datetime
 from PyQt5.QtWidgets import QMessageBox
-
 from qt_material import apply_stylesheet
+
 
 import db
 
@@ -328,8 +328,6 @@ class Ui_AddBundleDetails(object):
         self.cbRouteList.addItems(configs['routes'])
 
     def addDataToTable(self):
-        # rowPosition = self.twBundleDetails.rowCount()
-        # self.twBundleDetails.insertRow(rowPosition)
 
         qpSeries = self.cbQpSeries.currentText()
         qpCode = self.leQpCode.text()
@@ -355,25 +353,6 @@ class Ui_AddBundleDetails(object):
             self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
             self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
             i += 1
-
-        # if bundlesMulti <=1:
-        #     print('Normal adding', bundlesMulti)
-        #     self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
-        #     self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
-        #     self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
-        #     self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
-        #     self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
-        #     self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
-        # elif bundlesMulti >1:
-        #     i = 1
-        #     print("Multi adding")
-        #     multiData = []
-        #     while i<=bundlesMulti:
-        #         multiData.append([{"qpSeries": qpSeries, "qpCode": qpCode, "isNil": bool(isNilCheckBox),
-        #                       "receivedDate": slipDate, "messenger": messengerName,
-        #                       "collegeName": clgName}])
-        #     print(multiData)
-        #     print(i, bundlesMulti)
 
     def retranslateUi(self, AddBundleDetails):
         _translate = QtCore.QCoreApplication.translate
