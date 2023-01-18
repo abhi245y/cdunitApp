@@ -7,9 +7,12 @@ from PyQt5.QtCore import *
 from datetime import datetime
 from PyQt5.QtWidgets import QMessageBox
 from qt_material import apply_stylesheet
-
-
 import db
+import os
+import distro
+
+if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
+    os.environ["QT_QPA_PLATFORM"] = "xcb"
 
 
 class Ui_AddBundleDetails(object):
@@ -353,6 +356,7 @@ class Ui_AddBundleDetails(object):
             self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
             self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
             i += 1
+        self.twBundleDetails.scrollToBottom()
 
     def retranslateUi(self, AddBundleDetails):
         _translate = QtCore.QCoreApplication.translate
