@@ -62,16 +62,43 @@ def sortAndGetData(colName, key, value):
 def getConfig():
     return cdUnitDB["dataConfig"].find_one(), cdUnitDB["messengersDetails"].find()
 
+def searchAndGetResult(collectionName, query):
+    result = cdUnitDB[collectionName].find(query)
+     
+    if result is None:
+        return "Not Found"
+    else:
+        return result
+
+def checkForBundles(collectionName, query):
+    result = cdUnitDB[collectionName].find_one(query)
+
+    if result is None:
+        return False
+    else:
+        return True
+
 
 if __name__ == "__main__":
     pass
+    import datetime
+    # filter = {
+    #     'messenger': 'Rajesh R S',
+    #     'receivedDate': datetime.datetime(2023, 7, 27, 0, 0),
+    # }
+
+    # update = {'$set': {'collegeName': 'Sree Narayana Guru College of Advanced Studies Cherthala, Alappuzha'}}
+
+    # print(cdUnitDB["bundleDetails"].update_many(filter,update))
+
+    # print(checkForBundles("bundleDetails", filter))
     # from datetime import datetime  
     # array = []
     # for cursor in cdUnitDB["bundleDetails"].find({'collegeName':"Mannam NSS College Edamulakkal, Anchal, Kollam"}):
     #     array.append(cursor)
     # print(len(array))
-    # for doc in cdUnitDB["bundleDetails"].find({'collegeName':"Milad-E-Sherief Memorial College Kayamkulam", 'messenger': 'Viju C'}):
-        # print(doc)
+    # for doc in cdUnitDB["bundleDetails"].find(filter):
+    #     print(doc)
         # cdUnitDB["bundleDetails"].find_one_and_update(doc,
         # { '$set': {"receivedDate" : datetime.strptime("Fri Dec 23 2022", '%a %b %d %Y')} })
     # cdUnitDB["bundleDetails"].find_one_and_update({'collegeName':"Milad-E-Sherief Memorial College Kayamkulam"},

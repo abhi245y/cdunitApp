@@ -115,14 +115,13 @@ class Ui_AddBundleDetails(object):
         self.labelQpCode.setObjectName("labelQpCode")
         self.verticalLayout_4.addWidget(self.labelQpCode)
         self.leQpCode = QtWidgets.QLineEdit(self.gbSlipDetailsGroup)
-        self.leQpCode.setMaxLength(4)
         self.leQpCode.setObjectName("leQpCode")
         self.verticalLayout_4.addWidget(self.leQpCode)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setContentsMargins(-1, -1, 0, -1)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        spacerItem = QtWidgets.QSpacerItem(40, 25, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem = QtWidgets.QSpacerItem(30, 16, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem)
         self.sbBundleMulti = QtWidgets.QSpinBox(self.gbSlipDetailsGroup)
         self.sbBundleMulti.setProperty("value", 1)
@@ -154,6 +153,18 @@ class Ui_AddBundleDetails(object):
         self.verticalLayout_11.addWidget(self.btnAddQpCode)
         self.horizontalLayout.addLayout(self.verticalLayout_11)
         self.verticalLayout_12.addLayout(self.horizontalLayout)
+        self.labelRemarks = QtWidgets.QLabel(self.gbSlipDetailsGroup)
+        self.labelRemarks.setObjectName("labelRemarks")
+        self.verticalLayout_12.addWidget(self.labelRemarks)
+        self.pteRemarks = QtWidgets.QPlainTextEdit(self.gbSlipDetailsGroup)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pteRemarks.sizePolicy().hasHeightForWidth())
+        self.pteRemarks.setSizePolicy(sizePolicy)
+        self.pteRemarks.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.pteRemarks.setObjectName("pteRemarks")
+        self.verticalLayout_12.addWidget(self.pteRemarks)
         self.verticalLayout_10.addWidget(self.gbSlipDetailsGroup)
         self.leSearchTable = QtWidgets.QLineEdit(self.centralwidget)
         self.leSearchTable.setObjectName("leSearchTable")
@@ -163,7 +174,7 @@ class Ui_AddBundleDetails(object):
         self.twBundleDetails.setWhatsThis("")
         self.twBundleDetails.setWordWrap(False)
         self.twBundleDetails.setObjectName("twBundleDetails")
-        self.twBundleDetails.setColumnCount(6)
+        self.twBundleDetails.setColumnCount(7)
         self.twBundleDetails.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.twBundleDetails.setHorizontalHeaderItem(0, item)
@@ -177,6 +188,8 @@ class Ui_AddBundleDetails(object):
         self.twBundleDetails.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
         self.twBundleDetails.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.twBundleDetails.setHorizontalHeaderItem(6, item)
         self.verticalLayout_10.addWidget(self.twBundleDetails)
         self.bottomBtnsLayout = QtWidgets.QHBoxLayout()
         self.bottomBtnsLayout.setContentsMargins(0, 0, -1, -1)
@@ -213,6 +226,7 @@ class Ui_AddBundleDetails(object):
         header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(5, QtWidgets.QHeaderView.Stretch)
+        # header.setSectionResizeMode(6, QtWidgets.QHeaderView.Stretch)
 
         AddBundleDetails.keyPressEvent = self.pressEnter
 
@@ -257,9 +271,23 @@ class Ui_AddBundleDetails(object):
     def pressEnter(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             if self.cbCollegeList.currentText() and self.cbRouteList.currentText() and self.cbMessenger.currentText() and self.leQpCode.text() != "":
-                self.addDataToTable()
-                self.leQpCode.clear()
-                self.sbBundleMulti.setValue(1)
+                qpSeries = self.cbQpSeries.currentText()
+                qpCode = self.leQpCode.text()
+                slipDate = self.deBundleSlipDate.date().toString()
+                messengerName = self.cbMessenger.currentText()
+                clgName = self.cbCollegeList.currentText()
+                
+                query = {"qpSeries": qpSeries, "qpCode": qpCode, "isNil": bool(self.ticBoxNillStatment.checkState()),
+                              "receivedDate": datetime.strptime(slipDate, '%a %b %d %Y'), "messenger": messengerName,
+                              "collegeName": clgName}
+                              
+                if db.checkForBundles("bundleDetails", query) is False:
+                    self.addDataToTable()
+                    self.leQpCode.clear()
+                    self.sbBundleMulti.setValue(1)
+                else:
+                    print("Bundle Already Present: ", query)
+                    self.showMessage(QMessageBox.Critical, "Already Present")
             else:
                 self.showMessage(QMessageBox.Warning, "Please Enter details in all fields", "Error")
 
@@ -293,9 +321,16 @@ class Ui_AddBundleDetails(object):
                     rowData.append(widgetItem.text())
                 else:
                     rowData.append('NULL')
-            finalData.append({"qpSeries": rowData[0], "qpCode": rowData[1], "isNil": bool(rowData[2]),
+            query = {"qpSeries": rowData[0], "qpCode": rowData[1], "isNil": bool(rowData[2]),
                               "receivedDate": datetime.strptime(rowData[3], '%a %b %d %Y'), "messenger": rowData[4],
-                              "collegeName": rowData[5]})
+                              "collegeName": rowData[5],"remarks":str(rowData[6])}
+
+            if db.checkForBundles("bundleDetails", query) is False:
+                finalData.append(query)
+            else:
+                print("Bundle Already Present: ", query)
+                self.showMessage(QMessageBox.Critical, rowData[0]+" "+rowData[1]+" Already Present")
+                              
         result, resCode = db.addDataToDB("bundleDetails", finalData)
         # print(result, resCode)
         # result = True
@@ -338,6 +373,11 @@ class Ui_AddBundleDetails(object):
         messengerName = self.cbMessenger.currentText()
         clgName = self.cbCollegeList.currentText()
         bundlesMulti = self.sbBundleMulti.value()
+        remarks = self.pteRemarks.toPlainText()
+
+        if len(qpCode) >4:
+            remarks = remarks+" (SLCM Bundle)"
+
 
         isNilCheckBox = QTableWidgetItem()
         isNilCheckBox.setTextAlignment(Qt.AlignHCenter)
@@ -355,6 +395,7 @@ class Ui_AddBundleDetails(object):
             self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
             self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
             self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
+            self.twBundleDetails.setItem(rowPosition, 6, QtWidgets.QTableWidgetItem(remarks))
             i += 1
         self.twBundleDetails.scrollToBottom()
 
@@ -376,10 +417,11 @@ class Ui_AddBundleDetails(object):
         self.labelQpCode.setText(_translate("AddBundleDetails", "Enter QP Code"))
         self.leQpCode.setStatusTip(_translate("AddBundleDetails", "Enter QP Code"))
         self.ticBoxNillStatment.setText(_translate("AddBundleDetails", "Check If Bundle Is Nil"))
-        self.leQpCode.setValidator(QIntValidator(1, 9999))
-        self.leQpCode.setMaxLength(4)
+        self.leQpCode.setValidator(QIntValidator(1, 999999999))
+        self.leQpCode.setMaxLength(8)
         self.leQpCode.setPlaceholderText("Enter QP Code")
         self.btnAddQpCode.setText(_translate("AddBundleDetails", "Add To List"))
+        self.labelRemarks.setText(_translate("AddBundleDetails", "Remarks(If any)"))
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         item = self.twBundleDetails.horizontalHeaderItem(0)
         item.setText(_translate("AddBundleDetails", "Series"))
@@ -393,6 +435,8 @@ class Ui_AddBundleDetails(object):
         item.setText(_translate("AddBundleDetails", "Messenger Name"))
         item = self.twBundleDetails.horizontalHeaderItem(5)
         item.setText(_translate("AddBundleDetails", "College Name"))
+        item = self.twBundleDetails.horizontalHeaderItem(6)
+        item.setText(_translate("AddBundleDetails", "Remarks"))
         self.btnSubmit.setText(_translate("AddBundleDetails", "Submit"))
         self.btnClearTable.setText(_translate("AddBundleDetails", "Clear Table"))
         self.btnDeleteSelectedRow.setText(_translate("AddBundleDetails", "Delete Selected Rows"))
@@ -405,6 +449,6 @@ if __name__ == "__main__":
     AddBundleDetails = QtWidgets.QMainWindow()
     ui = Ui_AddBundleDetails()
     ui.setupUi(AddBundleDetails)
-    apply_stylesheet(app, theme='dark_teal.xml')
+    # apply_stylesheet(app, theme='dark_teal.xml')
     AddBundleDetails.show()
     sys.exit(app.exec_())
