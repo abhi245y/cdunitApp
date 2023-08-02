@@ -56,7 +56,7 @@ def addDataToDB(colName, data):
 
 def sortAndGetData(colName, key, value):
     query = {key: value}
-    return cdUnitDB[colName].find(query)
+    return cdUnitDB[colName].find(query).sort("College Name", pymongo.ASCENDING)
 
 
 def getConfig():
@@ -78,10 +78,14 @@ def checkForBundles(collectionName, query):
     else:
         return True
 
-
 if __name__ == "__main__":
     pass
-    import datetime
+    # recently_added_documents = cdUnitDB["bundleDetails"].find().sort([("_id", pymongo.DESCENDING)]).limit(10)
+
+# Iterate over the recently added documents and print their details
+# for document in recently_added_documents:
+#     print(document)
+#     import datetime
     # filter = {
     #     'messenger': 'Rajesh R S',
     #     'receivedDate': datetime.datetime(2023, 7, 27, 0, 0),

@@ -1,18 +1,18 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
-from threading import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from threading import Thread
+from PyQt5.QtGui import  QIcon, QIntValidator
+from PyQt5.QtCore import QSize
 from datetime import datetime
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 from qt_material import apply_stylesheet
 import db
 import os
 import distro
 
-if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
-    os.environ["QT_QPA_PLATFORM"] = "xcb"
+# if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
+#     os.environ["QT_QPA_PLATFORM"] = "xcb"
+# 
 
 
 class Ui_AddBundleDetails(object):
@@ -286,8 +286,24 @@ class Ui_AddBundleDetails(object):
                     self.leQpCode.clear()
                     self.sbBundleMulti.setValue(1)
                 else:
-                    print("Bundle Already Present: ", query)
-                    self.showMessage(QMessageBox.Critical, "Already Present")
+                     # Bundle already exists, ask user whether they want to add it anyway
+                    msg_box = QtWidgets.QMessageBox()
+                    msg_box.setIcon(QtWidgets.QMessageBox.Warning)
+                    msg_box.setText("The bundle is already present in the database.")
+                    msg_box.setInformativeText("Do you want to add it anyway?")
+                    msg_box.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                    response = msg_box.exec_()
+
+                    if response == QtWidgets.QMessageBox.Yes:
+                        # User chose to add the bundle, so add it to the database
+                        self.addDataToTable()
+                        self.leQpCode.clear()
+                        self.sbBundleMulti.setValue(1)
+                    else:
+                        # User chose not to add the bundle, show a message
+                        print("Bundle Already Present: ", query)
+                        self.showMessage(QtWidgets.QMessageBox.Critical, "Already Present")
+        
             else:
                 self.showMessage(QMessageBox.Warning, "Please Enter details in all fields", "Error")
 
@@ -325,11 +341,26 @@ class Ui_AddBundleDetails(object):
                               "receivedDate": datetime.strptime(rowData[3], '%a %b %d %Y'), "messenger": rowData[4],
                               "collegeName": rowData[5],"remarks":str(rowData[6])}
 
-            if db.checkForBundles("bundleDetails", query) is False:
-                finalData.append(query)
-            else:
-                print("Bundle Already Present: ", query)
-                self.showMessage(QMessageBox.Critical, rowData[0]+" "+rowData[1]+" Already Present")
+            finalData.append(query)
+
+            # if db.checkForBundles("bundleDetails", query) is False:
+            #     finalData.append(query)
+            # else:
+            #       # Bundle already exists, ask user whether they want to add it anyway
+            #     msg_box = QtWidgets.QMessageBox()
+            #     msg_box.setIcon(QtWidgets.QMessageBox.Warning)
+            #     msg_box.setText("The bundle is already present in the database.")
+            #     msg_box.setInformativeText("Do you want to add it anyway?")
+            #     msg_box.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            #     response = msg_box.exec_()
+
+            #     if response == QtWidgets.QMessageBox.Yes:
+            #         # User chose to add the bundle, so add it to the database
+            #        finalData.append(query)
+            #     else:
+            #         # User chose not to add the bundle, show a message
+            #         print("Bundle Already Present: ", query)
+            #         self.showMessage(QtWidgets.QMessageBox.Critical, rowData[0]+" "+rowData[1]+"Already Present")
                               
         result, resCode = db.addDataToDB("bundleDetails", finalData)
         # print(result, resCode)
