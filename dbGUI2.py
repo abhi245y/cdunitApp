@@ -307,7 +307,7 @@ class RecentDataWindow(QtWidgets.QWidget):
             for doc in collection.find({'_id':ObjectId(query['_id'])},{'_id': 0 }):
                 for key in doc.keys():
                     if query[key] != doc[key]:
-                        collection.update_one({"_id": ObjectId(query['_id'])}, {"$set": query[key]})
+                        collection.update_one({"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
             #             print(key, 'query:',query[key] ,'type:',type(query[key]),'doc:',doc[key] ,'type:',type(doc[key]))
             #             print(query['_id'])
             #             print(doc)
