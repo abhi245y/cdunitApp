@@ -5,6 +5,13 @@ from datetime import datetime
 import datetime
 from PyQt5.QtGui import  QIcon
 from PyQt5.QtCore import QSize
+import distro
+import os
+
+
+if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
+    os.environ["QT_QPA_PLATFORM"] = "xcb"
+
 
 class App(QtWidgets.QWidget):
     def __init__(self):
@@ -80,9 +87,6 @@ class App(QtWidgets.QWidget):
 
         documents = list(cursor)
 
-        # ... rest of the method ...
-
-
         # Scroll content
         scroll_content = QtWidgets.QWidget()
         main_layout = QtWidgets.QVBoxLayout(scroll_content)
@@ -100,24 +104,30 @@ class App(QtWidgets.QWidget):
         '''
 
         # Iterate through documents and create a card for each
+        errors = []
         for document in documents:
-            card_layout = QtWidgets.QVBoxLayout()
-            card_widget = QtWidgets.QWidget()
-            card_widget.setStyleSheet(card_style)
+            try:
+                card_layout = QtWidgets.QVBoxLayout()
+                card_widget = QtWidgets.QWidget()
+                card_widget.setStyleSheet(card_style)
 
-            if document['receivedDate'] and isinstance(document['receivedDate'], datetime.datetime):
-                receivedDate = document['receivedDate'].strftime("%Y-%m-%d %H:%M:%S")
-            else:
-                receivedDate =document['receivedDate']
+                if document['receivedDate'] and isinstance(document['receivedDate'], datetime.datetime):
+                    receivedDate = document['receivedDate'].strftime("%Y-%m-%d %H:%M:%S")
+                else:
+                    receivedDate =document['receivedDate']
 
-            card_layout.addWidget(QtWidgets.QLabel(f"Series: {document['qpSeries']}"))
-            card_layout.addWidget(QtWidgets.QLabel(f"Code: {document['qpCode']}"))
-            card_layout.addWidget(QtWidgets.QLabel(f"Received Date: {receivedDate}"))
-            card_layout.addWidget(QtWidgets.QLabel(f"Messenger: {document['messenger']}"))
-            card_layout.addWidget(QtWidgets.QLabel(f"College Name: {document['collegeName']}"))
+                card_layout.addWidget(QtWidgets.QLabel(f"Series: {document['qpSeries']}"))
+                card_layout.addWidget(QtWidgets.QLabel(f"Code: {document['qpCode']}"))
+                card_layout.addWidget(QtWidgets.QLabel(f"Received Date: {receivedDate}"))
+                card_layout.addWidget(QtWidgets.QLabel(f"Messenger: {document['messenger']}"))
+                card_layout.addWidget(QtWidgets.QLabel(f"College Name: {document['collegeName']}"))
 
-            card_widget.setLayout(card_layout)
-            main_layout.addWidget(card_widget)
+                card_widget.setLayout(card_layout)
+                main_layout.addWidget(card_widget)
+            except  KeyError:
+                # print(document['_id'])
+                errors.append(str(document['_id']))
+        print(errors)
 
         # Set scroll content layout
         scroll_content.setLayout(main_layout)

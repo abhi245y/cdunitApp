@@ -6,6 +6,19 @@ from addBundlesUI import Ui_AddBundleDetails
 from dbGUI import App as DbGUI
 from dbGUI2 import RecentDataWindow
 import time
+import distro
+import os
+import json
+
+filename = 'db_config.json'
+
+with open(filename, 'r') as f:
+    db_config = json.load(f)
+    QT_QPA_PLATFORM_ENABLED = db_config['QT_QPA_PLATFORM']
+
+if QT_QPA_PLATFORM_ENABLED == True:
+    if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
+        os.environ["QT_QPA_PLATFORM"] = "xcb"
 
 class MainUI(QtWidgets.QMainWindow):
     def __init__(self):

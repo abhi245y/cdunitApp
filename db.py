@@ -8,8 +8,9 @@ filename = 'db_config.json'
 if not os.path.exists(filename):
     # Create the dictionary with the desired keys and values
     data = {
-        'address': 'localhost',
-        'port': '27017'
+        'address': '10.20.9.3',
+        'port': '27017',
+        'QT_QPA_PLATFORM': True
     }
     
     # Write the dictionary to a JSON file
@@ -46,6 +47,12 @@ def initializeDataBase():
     dataConfig.insert_one(configs)
 
 
+
+def getCollegeNameUsingID(colName, key, value):
+    query = {key: value}
+    projection = None
+    return cdUnitDB[colName].find_one(query, projection)
+
 def addDataToDB(colName, data):
     try:
         cdUnitDB[colName].insert_many(data)
@@ -78,24 +85,50 @@ def checkForBundles(collectionName, query):
     else:
         return True
 
+def dbWatcher(collectionName, callback):
+    change_stream = cdUnitDB[collectionName].watch()
+    for change in change_stream:
+        callback(change)
+
+
 if __name__ == "__main__":
-    pass
-    # recently_added_documents = cdUnitDB["bundleDetails"].find().sort([("_id", pymongo.DESCENDING)]).limit(10)
+    # change_stream = cdUnitDB['bundleDetails'].watch()
+    # for change in change_stream:
+    #     print(change)
+        # callback(change)
+    # pass
+    # Process each change event
+
+    # import datetime
+    filter = {
+        'messenger': 'Sivaprasd V'}
+    #     'receivedDate': datetime.datetime(2023, 8, 9, 0, 0),
+    # }
+
+    # for doc in cdUnitDB['bundleDetails'].find(filter):
+    #     print(doc,'\n')
+
+    # from bson.objectid import ObjectId
+    # from datetime import datetime
 
 # Iterate over the recently added documents and print their details
 # for document in recently_added_documents:
 #     print(document)
-#     import datetime
+    # import datetime
     # filter = {
     #     'messenger': 'Rajesh R S',
-    #     'receivedDate': datetime.datetime(2023, 7, 27, 0, 0),
+    #     'receivedDate': datetime.datetime(2023, 8, 9, 0, 0),
     # }
 
-    # update = {'$set': {'collegeName': 'Sree Narayana Guru College of Advanced Studies Cherthala, Alappuzha'}}
+    # for doc in cdUnitDB['bundleDetails'].find(filter):
+    #     print(doc,'\n')
 
-    # print(cdUnitDB["bundleDetails"].update_many(filter,update))
+    update = {'$set': {'messenger': 'Sivaprasad V'}}
+
+    print(cdUnitDB["bundleDetails"].update_many(filter,update))
 
     # print(checkForBundles("bundleDetails", filter))
+
     # from datetime import datetime  
     # array = []
     # for cursor in cdUnitDB["bundleDetails"].find({'collegeName':"Mannam NSS College Edamulakkal, Anchal, Kollam"}):

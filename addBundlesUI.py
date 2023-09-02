@@ -4,16 +4,34 @@ from threading import Thread
 from PyQt5.QtGui import  QIcon, QIntValidator
 from PyQt5.QtCore import QSize
 from datetime import datetime
-from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem,QComboBox
 from qt_material import apply_stylesheet
 import db
 import os
 import distro
+import json
 
-# if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
-#     os.environ["QT_QPA_PLATFORM"] = "xcb"
-# 
+filename = 'db_config.json'
 
+if not os.path.exists(filename):
+    # Create the dictionary with the desired keys and values
+    data = {
+        'address': '10.20.9.3',
+        'port': '27017',
+        'QT_QPA_PLATFORM': True
+    }
+    
+    # Write the dictionary to a JSON file
+    with open(filename, 'w') as f:
+        json.dump(data, f)
+
+with open(filename, 'r') as f:
+    db_config = json.load(f)
+    QT_QPA_PLATFORM_ENABLED = db_config['QT_QPA_PLATFORM']
+
+if QT_QPA_PLATFORM_ENABLED == True:
+    if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
+        os.environ["QT_QPA_PLATFORM"] = "xcb"
 
 class Ui_AddBundleDetails(object):
     def setupUi(self, AddBundleDetails):
@@ -240,9 +258,29 @@ class Ui_AddBundleDetails(object):
         self.leSearchTable.textChanged.connect(self.search)
         self.btnDeleteSelectedRow.clicked.connect(self.deleteSelectedRow)
         self.btnClearTable.clicked.connect(self.deleteAllTableData)
+        self.cbCollegeList.editTextChanged.connect(self.onEditTextChanged)
 
         QtCore.QMetaObject.connectSlotsByName(AddBundleDetails)
 
+    def onEditTextChanged(self):
+        text = self.cbCollegeList.currentText()
+        if str(text).endswith(" "): # Check if the text ends with a space
+            # Remove the trailing space
+            text = text.strip()
+            if text.isdigit():
+                id_number = int(text)
+                # Perform the database search using id_number here
+                matching_item = db.getCollegeNameUsingID('collegeList', 'Centre No', id_number)
+                # Set the current text of the c ombo box to the fetched result
+                if matching_item is not None:
+                    self.cbCollegeList.setCurrentText("")
+                    self.cbCollegeList.setCurrentText(matching_item['College Name'] + ' ' + matching_item['Place'])
+                    if matching_item['Route'] != self.cbRouteList.currentText():
+                        self.showMessage(QtWidgets.QMessageBox.Warning, "The selected college name is not included in {} Route. Please check the Route before saving.".format(self.cbRouteList.currentText()))
+                else:
+                    self.showMessage(QtWidgets.QMessageBox.Information, "Sorry College Not Found")
+
+    
     def popUpResponse(self, i):
         if i.text() == "OK":
             self.twBundleDetails.clearContents()
@@ -283,8 +321,8 @@ class Ui_AddBundleDetails(object):
                               
                 if db.checkForBundles("bundleDetails", query) is False:
                     self.addDataToTable()
-                    self.leQpCode.clear()
-                    self.sbBundleMulti.setValue(1)
+                    # self.leQpCode.clear()
+                    # self.sbBundleMulti.setValue(1)
                 else:
                      # Bundle already exists, ask user whether they want to add it anyway
                     msg_box = QtWidgets.QMessageBox()
@@ -297,12 +335,12 @@ class Ui_AddBundleDetails(object):
                     if response == QtWidgets.QMessageBox.Yes:
                         # User chose to add the bundle, so add it to the database
                         self.addDataToTable()
-                        self.leQpCode.clear()
-                        self.sbBundleMulti.setValue(1)
+                        # self.leQpCode.clear()
+                        # self.sbBundleMulti.setValue(1)
                     else:
                         # User chose not to add the bundle, show a message
                         print("Bundle Already Present: ", query)
-                        self.showMessage(QtWidgets.QMessageBox.Critical, "Already Present")
+                        self.showMessage(QtWidgets.QMessageBox.critical, "Already Present")
         
             else:
                 self.showMessage(QMessageBox.Warning, "Please Enter details in all fields", "Error")
@@ -322,57 +360,45 @@ class Ui_AddBundleDetails(object):
             self.twBundleDetails.setCurrentItem(item)
 
     def getSubmittedData(self):
-        rowCount = self.twBundleDetails.rowCount()
-        columnCount = self.twBundleDetails.columnCount()
-        finalData = []
+        msg_box = QtWidgets.QMessageBox()
+        msg_box.setIcon(QtWidgets.QMessageBox.Warning)
+        msg_box.setText("You are about to save this to the database !!")
+        msg_box.setInformativeText("Are you sure?")
+        msg_box.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        response = msg_box.exec_()
 
-        for row in range(rowCount):
-            rowData = []
-            for column in range(columnCount):
-                widgetItem = self.twBundleDetails.item(row, column)
-                if column == 2:
-                    rowData.append(widgetItem.checkState())
-                elif widgetItem and widgetItem.text:
-                    # print(widgetItem.text())
-                    rowData.append(widgetItem.text())
-                else:
-                    rowData.append('NULL')
-            query = {"qpSeries": rowData[0], "qpCode": rowData[1], "isNil": bool(rowData[2]),
+        if response == QtWidgets.QMessageBox.Yes:
+            rowCount = self.twBundleDetails.rowCount()
+            columnCount = self.twBundleDetails.columnCount()
+            finalData = []
+
+            for row in range(rowCount):
+                rowData = []
+                for column in range(columnCount):
+                    widgetItem = self.twBundleDetails.item(row, column)
+                    if column == 2:
+                        rowData.append(widgetItem.checkState())
+                    elif widgetItem and widgetItem.text:
+                        # print(widgetItem.text())
+                        rowData.append(widgetItem.text())
+                    else:
+                        rowData.append('NULL')
+                query = {"qpSeries": rowData[0], "qpCode": rowData[1], "isNil": bool(rowData[2]),
                               "receivedDate": datetime.strptime(rowData[3], '%a %b %d %Y'), "messenger": rowData[4],
                               "collegeName": rowData[5],"remarks":str(rowData[6])}
 
-            finalData.append(query)
+                finalData.append(query)
 
-            # if db.checkForBundles("bundleDetails", query) is False:
-            #     finalData.append(query)
-            # else:
-            #       # Bundle already exists, ask user whether they want to add it anyway
-            #     msg_box = QtWidgets.QMessageBox()
-            #     msg_box.setIcon(QtWidgets.QMessageBox.Warning)
-            #     msg_box.setText("The bundle is already present in the database.")
-            #     msg_box.setInformativeText("Do you want to add it anyway?")
-            #     msg_box.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-            #     response = msg_box.exec_()
-
-            #     if response == QtWidgets.QMessageBox.Yes:
-            #         # User chose to add the bundle, so add it to the database
-            #        finalData.append(query)
-            #     else:
-            #         # User chose not to add the bundle, show a message
-            #         print("Bundle Already Present: ", query)
-            #         self.showMessage(QtWidgets.QMessageBox.Critical, rowData[0]+" "+rowData[1]+"Already Present")
-                              
-        result, resCode = db.addDataToDB("bundleDetails", finalData)
-        # print(result, resCode)
-        # result = True
-        resCode = ""
-        print(finalData)
-        if result is True:
-            self.showMessage(QMessageBox.Information, "Collection Added To Database")
-            self.twBundleDetails.clearContents()
-            self.twBundleDetails.setRowCount(0)
-        else:
-            self.showMessage(QMessageBox.Critical, resCode)
+            result, resCode = db.addDataToDB("bundleDetails", finalData)
+            resCode = ""
+            print(finalData)
+            if result is True:
+                self.showMessage(QMessageBox.Information, "Collection Added To Database")
+                self.ticBoxNillStatment.setCheckState(False)
+                self.twBundleDetails.clearContents()
+                self.twBundleDetails.setRowCount(0)
+            else:
+                self.showMessage(QMessageBox.Critical, resCode)
 
     def sortListThread(self):
         self.cbCollegeList.setEnabled(False)
@@ -429,6 +455,8 @@ class Ui_AddBundleDetails(object):
             self.twBundleDetails.setItem(rowPosition, 6, QtWidgets.QTableWidgetItem(remarks))
             i += 1
         self.twBundleDetails.scrollToBottom()
+        self.leQpCode.clear()
+        self.sbBundleMulti.setValue(1)
 
     def retranslateUi(self, AddBundleDetails):
         _translate = QtCore.QCoreApplication.translate
