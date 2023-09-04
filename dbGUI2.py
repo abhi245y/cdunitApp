@@ -14,6 +14,7 @@ import os
 import json
 import db
 import pytz
+import math
 
 
 
@@ -131,6 +132,7 @@ class RecentDataWindow(QtWidgets.QWidget):
         self.table.setHorizontalHeaderLabels(["Date of Entry", "QP Series", "QP Code","Nill Bundle","Received Date", "Messenger", "College Name", "Remarks", "DB _id"])
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
         self.table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.table.itemSelectionChanged.connect(self.onItemSelected)
 
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
@@ -142,6 +144,9 @@ class RecentDataWindow(QtWidgets.QWidget):
         header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
         layout.addWidget(self.table)
+
+        self.bottomLineText = QtWidgets.QLabel("")
+        layout.addWidget(self.bottomLineText)
 
         self.setLayout(layout)
         self.resize(1000, 800)
@@ -157,6 +162,13 @@ class RecentDataWindow(QtWidgets.QWidget):
     #     for change in change_stream:
     #         self.fetch_recent_data()
 
+    def onItemSelected(self):
+        if len(self.table.selectedItems()) != 0:
+            selected_items = str(math.floor(len(self.table.selectedItems())/self.table.columnCount()))  
+            self.bottomLineText.setText(f"Number of selected items: {selected_items}")
+        else:
+            self.bottomLineText.setText(f"Number of selected items: {len(self.table.selectedItems())}")
+               
     def initSorting(self):
         dateToSortQDate = self.sort_by_recive_date.date()
         dateToSort = datetime(dateToSortQDate.year(),dateToSortQDate.month(),dateToSortQDate.day()).strftime("%a %b %d %Y")
