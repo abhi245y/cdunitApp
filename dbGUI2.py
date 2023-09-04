@@ -92,6 +92,27 @@ class RecentDataWindow(QtWidgets.QWidget):
         # Add the new layout to the existing layout
         layout.addLayout(self.date_layout)
 
+        # Code For Sorting Elements
+        self.sortEditLayout = QtWidgets.QHBoxLayout()
+
+        self.sort_by_recive_date_label = QtWidgets.QLabel("Enter Received Date")
+        self.sort_by_recive_date = QtWidgets.QDateEdit()
+        self.sort_by_recive_date.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(2020, 1, 1), QtCore.QTime(0, 0, 0)))
+        self.sort_by_recive_date.setCalendarPopup(True)
+        self.sort_by_recive_date.setDateTime(QtCore.QDateTime.currentDateTime())
+        self.sortEditLayout.addWidget(self.sort_by_recive_date_label)
+        self.sortEditLayout.addWidget(self.sort_by_recive_date)
+
+        self.sort_now_btn = QtWidgets.QPushButton('Sort', self)
+        self.sort_now_btn.clicked.connect(self.initSorting)
+        self.sortEditLayout.addWidget(self.sort_now_btn)
+
+        self.clear_sorting_btn = QtWidgets.QPushButton('Clear Sorting', self)
+        self.clear_sorting_btn.clicked.connect(self.clearSorting)
+        self.sortEditLayout.addWidget(self.clear_sorting_btn)
+
+        layout.addLayout(self.sortEditLayout)
+
         # Search Layout and edit text
         self.searchEditLayout = QtWidgets.QHBoxLayout()
         self.leSearchTable = QtWidgets.QLineEdit()
@@ -100,6 +121,9 @@ class RecentDataWindow(QtWidgets.QWidget):
         layout.addLayout(self.searchEditLayout)
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         self.leSearchTable.textChanged.connect(self.search)
+
+        # self.leSearchTable.textChanged.connect(self.onEditTextChanged)
+
 
         # Table View
         self.table = QtWidgets.QTableWidget(self)
@@ -133,6 +157,20 @@ class RecentDataWindow(QtWidgets.QWidget):
     #     for change in change_stream:
     #         self.fetch_recent_data()
 
+    def initSorting(self):
+        dateToSortQDate = self.sort_by_recive_date.date()
+        dateToSort = datetime(dateToSortQDate.year(),dateToSortQDate.month(),dateToSortQDate.day()).strftime("%a %b %d %Y")
+        print(dateToSort)
+        self.search(dateToSort)
+    
+    def clearSorting(self):
+        self.search("")
+
+    def onEditTextChanged(self):
+        text = self.leSearchTable.text()
+        if str(text).endswith(" "): # Check if the text ends with a space
+            # Remove the trailing space
+            self.search(text)
 
     def mousePressEvent(self, event):
         # Check if the source of the event (the widget that was clicked) is not the QTableWidget
@@ -142,17 +180,26 @@ class RecentDataWindow(QtWidgets.QWidget):
         super().mousePressEvent(event)
 
     def search(self, s):
-        items = self.table.findItems(s, Qt.MatchContains)
-        if items:  # we have found something
-            item = items[0]  # take the first
-            self.table.setCurrentItem(item)
-            # for item in items:
-            #     # item = items[0]  # take the first
-            #     self.table.setCurrentItem(item)
-            #     if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-            #         pass
-            #     else:
-            #         time.sleep()
+        for row in range(self.table.rowCount()):
+            row_text = " ".join([self.table.item(row, col).text() for col in range(self.table.columnCount())])
+            if s.lower() in row_text.lower():
+                self.table.setRowHidden(row, False)
+            else:
+                self.table.setRowHidden(row, True)
+
+
+    # def search(self, s):
+    #     items = self.table.findItems(s, Qt.MatchContains)
+    #     if items:  # we have found something
+    #         item = items[0]  # take the first
+    #         self.table.setCurrentItem(item)
+    #         # for item in items:
+    #         #     # item = items[0]  # take the first
+    #         #     self.table.setCurrentItem(item)
+    #         #     if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+    #         #         pass
+    #         #     else:
+    #         #         time.sleep()
 
     def get_objectid_from_specific_date(self, qDate,hour=0, minute=0, second=0, timezone='UTC'):
         """Return ObjectId for a specific date and time."""
