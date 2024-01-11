@@ -65,3 +65,10 @@ def dbWatcher(collectionName, callback):
     change_stream = cdUnitDB[collectionName].watch()
     for change in change_stream:
         callback(change)
+
+def check_db_connection():
+    try:
+        client.admin.command("ping")
+        return True
+    except Exception as e:
+        return False

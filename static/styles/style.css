@@ -2,6 +2,9 @@
   --pico-form-element-spacing-horizontal: 1.25rem;
 }
 
+#status-tooltip {
+  border-bottom: 0px;
+}
 h2,
 h4,
 h5 {
@@ -11,6 +14,18 @@ h5 {
 }
 button {
   --pico-font-weight: 700;
+}
+
+table {
+  white-space: nowrap;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  /* Additional styling like background color, padding, etc. */
 }
 
 /* Jade color for light color scheme (Default) */

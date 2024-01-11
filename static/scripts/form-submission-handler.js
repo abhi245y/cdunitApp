@@ -13,6 +13,9 @@ function populateTableRow(rowData) {
     } else {
       cell.text(value);
     }
+    if (columnName === "collegeName") {
+      cell.class = "shrink";
+    }
     if (columnName === "Action") {
       cell.append(
         $("<button>", {
@@ -26,6 +29,7 @@ function populateTableRow(rowData) {
   });
 
   $("#DataTables_Table_0").DataTable().rows.add(newRow).draw();
+  document.querySelector(".table-container").style.display = "";
 }
 
 $(function () {
@@ -55,6 +59,10 @@ $(function () {
       remark: textareaRemarksVal,
       Action: "",
     };
-    populateTableRow(formData);
+    for (let i = 0; i < inputBundleQuantityVal; i++) {
+      populateTableRow(formData);
+    }
+
+    document.querySelector("#add-bundles-form").reset();
   });
 });

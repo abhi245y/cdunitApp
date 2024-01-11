@@ -1,1 +1,4 @@
-{ "address": "localhost", "port": "27017" }
+{
+    "address": "10.20.80.108",
+    "port": "27017"
+}

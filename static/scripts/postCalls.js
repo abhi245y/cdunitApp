@@ -2,6 +2,8 @@
 
 // In your Javascript (external .js resource or <script> tag)
 document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector(".table-container").style.display = "none";
+
   let routesSelect = document.querySelector("#routes-select");
   let messengersSelect = document.querySelector("#messengers-select");
   let qpSeriesSelect = document.querySelector("#qp-series-select");
@@ -80,3 +82,39 @@ document.addEventListener("DOMContentLoaded", function () {
   //   theme: "classic",
   // });
 });
+const CHECK_INTERVAL = 30000;
+
+const updateIndicator = (status) => {
+  const iconElement = document.getElementById("db-connection-icon");
+  const tooltips = document.querySelector("#status-tooltip");
+  if (status === "connected") {
+    iconElement.style.color = "#18bf00";
+    tooltips.setAttribute("data-tooltip", "Connected");
+  } else {
+    iconElement.style.color = "#bf0000";
+    tooltips.setAttribute("data-tooltip", "Connection Error");
+  }
+};
+
+const checkDbConnection = async () => {
+  try {
+    const response = await axios.post("/api/check-db-connection");
+    const isConnected = response.data.dbStatus;
+    if (isConnected) {
+      updateIndicator("connected");
+    } else {
+      updateIndicator("disconnected");
+    }
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
+};
+
+function startPeriodicCheck() {
+  setInterval(checkDbConnection, CHECK_INTERVAL);
+}
+
+window.onload = () => {
+  startPeriodicCheck();
+};
