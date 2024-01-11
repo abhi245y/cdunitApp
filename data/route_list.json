@@ -1,0 +1,1592 @@
+[
+ {
+  "Centre No": 6,
+  "Route": "Local I",
+  "College Name": "Mahatma Gandhi College",
+  "Place": "Kesavadasapuram, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 7,
+  "Route": "Local I",
+  "College Name": "Mar Ivanios College",
+  "Place": "Nalanchira, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 8,
+  "Route": "Local I",
+  "College Name": "Sree Narayana College",
+  "Place": "Chempazhanthy, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 9,
+  "Route": "Local I",
+  "College Name": "Loyola College of Social Sciences",
+  "Place": "Sreekariyam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 10,
+  "Route": "Local I",
+  "College Name": "Govt. College",
+  "Place": "Kariavattom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 11,
+  "Route": "Local I",
+  "College Name": "Lakshmibai National College Of Physical Education",
+  "Place": "Kariavattom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 12,
+  "Route": "Local I",
+  "College Name": "St. Xavier's College",
+  "Place": "Thumba, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 13,
+  "Route": "Local I",
+  "College Name": "All Saints College",
+  "Place": "Chackai, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 20,
+  "Route": "Local I",
+  "College Name": "Iqbal College",
+  "Place": "Peringamala, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 21,
+  "Route": "Local I",
+  "College Name": "Govt. College",
+  "Place": "Nedumangad, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 37,
+  "Route": "Local I",
+  "College Name": "Mannaniya College of Arts & Science",
+  "Place": "Pangode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 66,
+  "Route": "Local I",
+  "College Name": "Govt. College of Engineering",
+  "Place": "Barton Hill, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 67,
+  "Route": "Local I",
+  "College Name": "College of Engineering",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 69,
+  "Route": "Local I",
+  "College Name": "Kerala Law Academy Law College",
+  "Place": "Peroorkada, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 70,
+  "Route": "Local I",
+  "College Name": "Govt. Law College",
+  "Place": "Barton Hill, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 74,
+  "Route": "Local I",
+  "College Name": "Mar Theophilus Training College",
+  "Place": "Nalanchira, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 75,
+  "Route": "Local I",
+  "College Name": "Sree Narayana Training College",
+  "Place": "Nedunganda, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 87,
+  "Route": "Local I",
+  "College Name": "UIT",
+  "Place": "Kuravankonam, University of Kerala, PTP School Campus, Kuravankonam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 92,
+  "Route": "Local I",
+  "College Name": "KUCTE",
+  "Place": "Nedumangad, Govt. Boys H S, Manja, Nedumangad,  Thiruvananthapuram"
+ },
+ {
+  "Centre No": 93,
+  "Route": "Local I",
+  "College Name": "KUCTE",
+  "Place": "Kumarapuram, Govt. Medical College HSS, Kumarapuram, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 94,
+  "Route": "Local I",
+  "College Name": "KUCTE",
+  "Place": "Kariavattom, LNCPE Road, Near Govt. College Kariavattom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 102,
+  "Route": "Local I",
+  "College Name": "University College of Engineering",
+  "Place": "Kariavattom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 105,
+  "Route": "Local I",
+  "College Name": "UIT",
+  "Place": "University of Kerala, Govt. Higher Secondary School Campus, Pirappancode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 116,
+  "Route": "Local I",
+  "College Name": "Mohandas College of Science and Technology",
+  "Place": "Anad, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 122,
+  "Route": "Local I",
+  "College Name": "Mar Baselios College of Engineering and Technology",
+  "Place": "Nalanchira, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 127,
+  "Route": "Local I",
+  "College Name": "Allamma Iqbal Institute of Management",
+  "Place": "Peringamala, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 143,
+  "Route": "Local I",
+  "College Name": "Government College of Nursing",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 157,
+  "Route": "Local I",
+  "College Name": "St. Thomas Training College",
+  "Place": "Mukkolakkal, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 159,
+  "Route": "Local I",
+  "College Name": "St. Jacob's Training College",
+  "Place": "Menamkulam, Kazhakuttom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 171,
+  "Route": "Local I",
+  "College Name": "Iqbal Training College",
+  "Place": "Peringammala"
+ },
+ {
+  "Centre No": 185,
+  "Route": "Local I",
+  "College Name": "SUT Academy of Medical Science",
+  "Place": "Vattappara, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 202,
+  "Route": "Local I",
+  "College Name": "Kaviyattu College of Education",
+  "Place": "Pirappancode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 204,
+  "Route": "Local I",
+  "College Name": "Sree Narayana Guru Kripa B. Ed. College",
+  "Place": "Nirmala Bhavan, Pothancode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 237,
+  "Route": "Local I",
+  "College Name": "NISH",
+  "Place": "Karimanal , Akkulam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 243,
+  "Route": "Local I",
+  "College Name": "G. Karunakaran Memorial Co-operative College of\nManagement",
+  "Place": "Kakkode, Azhicode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 256,
+  "Route": "Local I",
+  "College Name": "DC School of Management and Technology",
+  "Place": "Kazhakkuttam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 262,
+  "Route": "Local I",
+  "College Name": "Mar Gregorios College of Law",
+  "Place": "Bethani Hills, Nalanchira, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 267,
+  "Route": "Local I",
+  "College Name": "Sree Narayana Guru College of Advanced Studies",
+  "Place": "Chempazhanthy, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 271,
+  "Route": "Local I",
+  "College Name": "Muslim Association College of Arts & Science",
+  "Place": "Panavoor, Nedumangad, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 286,
+  "Route": "Local I",
+  "College Name": "Dr. Palpu College of Arts and Science",
+  "Place": "Pangode, Puthussery"
+ },
+ {
+  "Centre No": 297,
+  "Route": "Local I",
+  "College Name": "Gregorian College of Advanced Studies",
+  "Place": "Alathara, Sreekariyam, Trivandrum"
+ },
+ {
+  "Centre No": 301,
+  "Route": "Local I",
+  "College Name": "M G M College of Arts & Science Pallinada",
+  "Place": "Kadinamkulam Kaniyapuram, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 308,
+  "Route": "Local I",
+  "College Name": "Marian College of Arts and Science",
+  "Place": "Menamkulam, Kazhakuttom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 310,
+  "Route": "Local I",
+  "College Name": "UIT Regional Centre",
+  "Place": "Kallara, (Vamanapuram, Paramukal Vellanudi, Kallara)"
+ },
+ {
+  "Centre No": 314,
+  "Route": "Local I",
+  "College Name": "UIT",
+  "Place": "Veli, Vallakkadavu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 315,
+  "Route": "Local I",
+  "College Name": "UIT",
+  "Place": "Tholicode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 328,
+  "Route": "Local I",
+  "College Name": "UIT",
+  "Place": "Kazhakuttom, Kattayikonam"
+ },
+ {
+  "Centre No": 333,
+  "Route": "Local I",
+  "College Name": "IMDR College of Advanced Studies",
+  "Place": "Purushothamgiri, Mylam, Cheriyakonni, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 1,
+  "Route": "Local II",
+  "College Name": "University College",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 2,
+  "Route": "Local II",
+  "College Name": "Govt Sanskrit College",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 3,
+  "Route": "Local II",
+  "College Name": "Govt. Arts College",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 4,
+  "Route": "Local II",
+  "College Name": "Govt. College for Women",
+  "Place": "Vazhuthacaud, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 5,
+  "Route": "Local II",
+  "College Name": "Sree Swathithirunal College of Music",
+  "Place": "Thycaud, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 14,
+  "Route": "Local II",
+  "College Name": "National College",
+  "Place": "Manacaud, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 15,
+  "Route": "Local II",
+  "College Name": "NSS College for Women",
+  "Place": "Neeramankara, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 16,
+  "Route": "Local II",
+  "College Name": "KNM Govt. Arts & Science College",
+  "Place": "Kanjiramkulam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 17,
+  "Route": "Local II",
+  "College Name": "VTMNSS College",
+  "Place": "Dhanuvachapuram, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 18,
+  "Route": "Local II",
+  "College Name": "Emmanual College",
+  "Place": "Vazhichal, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 19,
+  "Route": "Local II",
+  "College Name": "Christian College",
+  "Place": "Kattakada, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 60,
+  "Route": "Local II",
+  "College Name": "Govt. Ayurveda College",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 61,
+  "Route": "Local II",
+  "College Name": "Govt. Homoeopathic Medical College",
+  "Place": "Iranimuttom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 62,
+  "Route": "Local II",
+  "College Name": "Govt. Medical College",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 63,
+  "Route": "Local II",
+  "College Name": "Govt. Dental College",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 65,
+  "Route": "Local II",
+  "College Name": "Sree Chithira Thirunal College of Engineering",
+  "Place": "Pappanamcode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 71,
+  "Route": "Local II",
+  "College Name": "College of Fine Arts",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 73,
+  "Route": "Local II",
+  "College Name": "Govt College of Teacher Education",
+  "Place": "Thycaud, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 81,
+  "Route": "Local II",
+  "College Name": "CSI College of Education",
+  "Place": "Parassala, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 88,
+  "Route": "Local II",
+  "College Name": "UIT",
+  "Place": "Neyyattinkara, University of Kerala, Blue for Building, Aralummoodu, Neyyattinkara Thiruvananthapuram"
+ },
+ {
+  "Centre No": 104,
+  "Route": "Local II",
+  "College Name": "Sree Vidhyadhiraja Homoeopathy Medical College",
+  "Place": "Nemom, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 107,
+  "Route": "Local II",
+  "College Name": "LBS Institute of Technology for Women",
+  "Place": "Poojappura, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 129,
+  "Route": "Local II",
+  "College Name": "Dr. Somervell Memorial CSI Medical College &\nHospital",
+  "Place": "Karakonam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 152,
+  "Route": "Local II",
+  "College Name": "BNV College of Teacher Education",
+  "Place": "Thiruvallam Thiruvananthapuram"
+ },
+ {
+  "Centre No": 154,
+  "Route": "Local II",
+  "College Name": "New B. Ed. College",
+  "Place": "Nellimoodu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 160,
+  "Route": "Local II",
+  "College Name": "Emmanuel College of B. Ed. Training",
+  "Place": "Vazhichal, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 161,
+  "Route": "Local II",
+  "College Name": "Christ Nagar College of Education",
+  "Place": "Thiruvallam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 168,
+  "Route": "Local II",
+  "College Name": "Victory College of Teacher Education Centre",
+  "Place": "Oalthanni, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 192,
+  "Route": "Local II",
+  "College Name": "Lourdes Matha Institute of Hotel Management &\nCatering Technology",
+  "Place": "Kuttichal, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 203,
+  "Route": "Local II",
+  "College Name": "Kunjukrishna Nadar Memorial B. Ed. College",
+  "Place": "Mavila, Kanjiramkulam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 206,
+  "Route": "Local II",
+  "College Name": "PTPM College of Teacher Education",
+  "Place": "Maruthoorkonam, Balarampuram, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 208,
+  "Route": "Local II",
+  "College Name": "College of Applied Sciences",
+  "Place": "Dhanuvachapuram, Parasala"
+ },
+ {
+  "Centre No": 211,
+  "Route": "Local II",
+  "College Name": "Saraswathy College of Nursing",
+  "Place": "Parasala, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 214,
+  "Route": "Local II",
+  "College Name": "Kerala Institute of Tourism and Travel Studies",
+  "Place": "Residency Thycaud, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 221,
+  "Route": "Local II",
+  "College Name": "Kerala Institute of Co-operative Management",
+  "Place": "Nettukal Hills, Neyyar Dam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 254,
+  "Route": "Local II",
+  "College Name": "College of Architecture",
+  "Place": "Thinavila, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 257,
+  "Route": "Local II",
+  "College Name": "Christ Nagar College",
+  "Place": "Maranalloor, Koovalassery, Malayinkizhu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 258,
+  "Route": "Local II",
+  "College Name": "Vigyaan College of Applied Sciences (VICAS)",
+  "Place": "Sasthagiri, Kattakode, Kattakada, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 263,
+  "Route": "Local II",
+  "College Name": "C S I Institute of Legal Studies",
+  "Place": "Cheruvarakonam."
+ },
+ {
+  "Centre No": 278,
+  "Route": "Local II",
+  "College Name": "MMS Govt. Arts & Science College",
+  "Place": "Malayinkeezhu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 279,
+  "Route": "Local II",
+  "College Name": "Govt. Arts and Science College Kulathoor",
+  "Place": "Neyyattinkara, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 284,
+  "Route": "Local II",
+  "College Name": "Christ College Vizhinjam",
+  "Place": "Thiruvananthapuram"
+ },
+ {
+  "Centre No": 287,
+  "Route": "Local II",
+  "College Name": "KICMA College of Arts and Science",
+  "Place": "Neyyardam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 288,
+  "Route": "Local II",
+  "College Name": "KNM Arts and Science college",
+  "Place": "Kanjiramkulam"
+ },
+ {
+  "Centre No": 293,
+  "Route": "Local II",
+  "College Name": "Mother Theresa college Nellikad",
+  "Place": "Kattakada"
+ },
+ {
+  "Centre No": 299,
+  "Route": "Local II",
+  "College Name": "White Memorial College of Arts and Science for\nWomen",
+  "Place": "Panachamoodu, Vellarda, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 309,
+  "Route": "Local II",
+  "College Name": "Bishop Jesudasan CSI Arts & Science College",
+  "Place": "Malayara, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 313,
+  "Route": "Local II",
+  "College Name": "UIT Regional Centre",
+  "Place": "Kanjiramkulam (Kovalam), Panchayath High School, Kanjiramkulam, Kazhivoor"
+ },
+ {
+  "Centre No": 316,
+  "Route": "Local II",
+  "College Name": "UIT",
+  "Place": "Malayinkeezhu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 321,
+  "Route": "Local II",
+  "College Name": "UIT",
+  "Place": "Parassala"
+ },
+ {
+  "Centre No": 322,
+  "Route": "Local II",
+  "College Name": "Saraswathi College of Arts and Science",
+  "Place": "Vilappil"
+ },
+ {
+  "Centre No": 331,
+  "Route": "Local II",
+  "College Name": "Santhom Malankara Arts & Science College",
+  "Place": "Neyyattinkara"
+ },
+ {
+  "Centre No": 941,
+  "Route": "Local II",
+  "College Name": "UIM Institute of Cooperative Management",
+  "Place": "Poojappura, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 967,
+  "Route": "Local II",
+  "College Name": "UIT",
+  "Place": "Vellarada, Aarattukuzhi Thiruvananthapuram"
+ },
+ {
+  "Centre No": 26,
+  "Route": "MC I",
+  "College Name": "Sree Sankara Vidyapeetom College",
+  "Place": "Nagaroor, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 38,
+  "Route": "MC I",
+  "College Name": "NSS College",
+  "Place": "Nilamel, Kollam"
+ },
+ {
+  "Centre No": 39,
+  "Route": "MC I",
+  "College Name": "Mar Thoma College of Science & Technology",
+  "Place": "Chadayamangalam, Kollam"
+ },
+ {
+  "Centre No": 40,
+  "Route": "MC I",
+  "College Name": "St. John's College",
+  "Place": "Anchal, Kollam"
+ },
+ {
+  "Centre No": 41,
+  "Route": "MC I",
+  "College Name": "Sree Narayana College",
+  "Place": "Punalur, Kollam"
+ },
+ {
+  "Centre No": 42,
+  "Route": "MC I",
+  "College Name": "St. Gregorious College",
+  "Place": "Kottarakara, Kollam"
+ },
+ {
+  "Centre No": 43,
+  "Route": "MC I",
+  "College Name": "St. Stephen's College",
+  "Place": "Pathanapuram, Kollam"
+ },
+ {
+  "Centre No": 77,
+  "Route": "MC I",
+  "College Name": "Mount Tabor Training College",
+  "Place": "Pathanapuram, Kollam"
+ },
+ {
+  "Centre No": 84,
+  "Route": "MC I",
+  "College Name": "Baselious Marthoma Mathews II Training College",
+  "Place": "Kottarakara, Kollam"
+ },
+ {
+  "Centre No": 85,
+  "Route": "MC I",
+  "College Name": "Mannam Memorial Training College",
+  "Place": "Vilakudy, Kollam"
+ },
+ {
+  "Centre No": 96,
+  "Route": "MC I",
+  "College Name": "KUCTE",
+  "Place": "Kulakkada, Govt. HS, Kulakkada, Kollam"
+ },
+ {
+  "Centre No": 97,
+  "Route": "MC I",
+  "College Name": "KUCTE",
+  "Place": "Anchal, GHS Campus Anchal West, Anchal, Kollam"
+ },
+ {
+  "Centre No": 103,
+  "Route": "MC I",
+  "College Name": "UIT",
+  "Place": "Pathanapuram, Near Seema Theatre, Govt. Hospital Road, Pathanapuram, Kollam"
+ },
+ {
+  "Centre No": 120,
+  "Route": "MC I",
+  "College Name": "Muslim Association College of Engineering",
+  "Place": "Venjarammoodu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 125,
+  "Route": "MC I",
+  "College Name": "Marthoma Institute of Information Technology",
+  "Place": "Chadayamangalam, Ayoor"
+ },
+ {
+  "Centre No": 134,
+  "Route": "MC I",
+  "College Name": "PMSA Pookoya Thangal Memorial Arts and Science College",
+  "Place": "Kadakkal"
+ },
+ {
+  "Centre No": 139,
+  "Route": "MC I",
+  "College Name": "Mar Baselious Institute of Technology",
+  "Place": "Anchal, Kollam"
+ },
+ {
+  "Centre No": 162,
+  "Route": "MC I",
+  "College Name": "R. V. Training College",
+  "Place": "Valakom (Rama Vilasam Training College)"
+ },
+ {
+  "Centre No": 166,
+  "Route": "MC I",
+  "College Name": "Manjappara Education and Charitable Trust B. Ed. Centre",
+  "Place": "Ayur, Kollam"
+ },
+ {
+  "Centre No": 170,
+  "Route": "MC I",
+  "College Name": "Sree Vidyadiraja College of Teacher Education",
+  "Place": "Vendar, Kottarakkara"
+ },
+ {
+  "Centre No": 172,
+  "Route": "MC I",
+  "College Name": "Sabarigiri College of Education",
+  "Place": "Anchal"
+ },
+ {
+  "Centre No": 176,
+  "Route": "MC I",
+  "College Name": "Gokulam Medical College & Research Foundation",
+  "Place": "Venjaramoodu, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 193,
+  "Route": "MC I",
+  "College Name": "UIT",
+  "Place": "Yeroor, Govt. Higher Secondary School Campus,  Yeroor, Near Anchal, Kollam"
+ },
+ {
+  "Centre No": 199,
+  "Route": "MC I",
+  "College Name": "Jamia Training College",
+  "Place": "Chithara, Kollam"
+ },
+ {
+  "Centre No": 207,
+  "Route": "MC I",
+  "College Name": "KPM B. Ed. College",
+  "Place": "Cheriya Velinalloor, Kollam"
+ },
+ {
+  "Centre No": 217,
+  "Route": "MC I",
+  "College Name": "UIT",
+  "Place": "Kottarakkara, University of Kerala, Govt. Girls Vocational Higher Secondary School Campus, Kottarakkara"
+ },
+ {
+  "Centre No": 231,
+  "Route": "MC I",
+  "College Name": "Rajadhani Institute of Engineering & Technology",
+  "Place": "Alamcode, Attingal"
+ },
+ {
+  "Centre No": 242,
+  "Route": "MC I",
+  "College Name": "Gurudev Institute of Management Studies",
+  "Place": "Kottappuram, Kadakkal Kollam"
+ },
+ {
+  "Centre No": 270,
+  "Route": "MC I",
+  "College Name": "Sree Narayana Guru College of Advanced Studies",
+  "Place": "Punalur, Kollam"
+ },
+ {
+  "Centre No": 273,
+  "Route": "MC I",
+  "College Name": "UIT",
+  "Place": "Govt. Higher Secondary School Ottakkal, Thenmala"
+ },
+ {
+  "Centre No": 280,
+  "Route": "MC I",
+  "College Name": "Mannam NSS College",
+  "Place": "Edamulakkal, Anchal, Kollam"
+ },
+ {
+  "Centre No": 282,
+  "Route": "MC I",
+  "College Name": "College of Applied Science",
+  "Place": "Kalanjoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 305,
+  "Route": "MC I",
+  "College Name": "Ayyankali Memorial Arts and Science College Kuryottumala",
+  "Place": "Punalur, Kollam"
+ },
+ {
+  "Centre No": 312,
+  "Route": "MC I",
+  "College Name": "UIT Regional Centre",
+  "Place": "Ittiva, Chadayamangalam Govt. UPS, Chariparambu"
+ },
+ {
+  "Centre No": 330,
+  "Route": "MC I",
+  "College Name": "Sree Sankara College",
+  "Place": "Nagaroor"
+ },
+ {
+  "Centre No": 332,
+  "Route": "MC I",
+  "College Name": "Grace International Academy",
+  "Place": "Punalur"
+ },
+ {
+  "Centre No": 334,
+  "Route": "MC I",
+  "College Name": "Travancore Arts and Science College",
+  "Place": "Madathara"
+ },
+ {
+  "Centre No": 946,
+  "Route": "MC I",
+  "College Name": "UIM",
+  "Place": "Punalur, Deva Star Homes,  Nedumkayam, Paper Mill Road, Punalur"
+ },
+ {
+  "Centre No": 51,
+  "Route": "MC II",
+  "College Name": "Bishop Moore College",
+  "Place": "Mavelikara, Alappuzha"
+ },
+ {
+  "Centre No": 52,
+  "Route": "MC II",
+  "College Name": "College of Applied Science",
+  "Place": "Mavelikara, Alappuzha"
+ },
+ {
+  "Centre No": 53,
+  "Route": "MC II",
+  "College Name": "KVVS College of Science & Technology",
+  "Place": "Enathu, Adoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 54,
+  "Route": "MC II",
+  "College Name": "St. Cyril's College",
+  "Place": "Adoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 55,
+  "Route": "MC II",
+  "College Name": "College of Applied Sciences",
+  "Place": "Adoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 56,
+  "Route": "MC II",
+  "College Name": "NSS College",
+  "Place": "Pandalam, Pathanamthitta"
+ },
+ {
+  "Centre No": 57,
+  "Route": "MC II",
+  "College Name": "Christian College",
+  "Place": "Angadical, Chengannur, Pathanamthitta"
+ },
+ {
+  "Centre No": 58,
+  "Route": "MC II",
+  "College Name": "Sree Narayana College",
+  "Place": "Neduvaramcode, Chengannur, Pathanamthitta"
+ },
+ {
+  "Centre No": 59,
+  "Route": "MC II",
+  "College Name": "Sree Ayyappa College",
+  "Place": "Eramallikara, Thiruvandoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 72,
+  "Route": "MC II",
+  "College Name": "Raja Ravi Varma College of Fine Arts",
+  "Place": "Mavelikkara, Alappuzha"
+ },
+ {
+  "Centre No": 78,
+  "Route": "MC II",
+  "College Name": "Peet Memorial Training College",
+  "Place": "Mavelikara, Alappuzha"
+ },
+ {
+  "Centre No": 79,
+  "Route": "MC II",
+  "College Name": "NSS Training College",
+  "Place": "Pandalam"
+ },
+ {
+  "Centre No": 91,
+  "Route": "MC II",
+  "College Name": "UIT",
+  "Place": "Kaithavana Buildings, High School Jn,  Adoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 99,
+  "Route": "MC II",
+  "College Name": "KUCTE",
+  "Place": "Kunnam, H. S, Kunnam, Mavelikkara"
+ },
+ {
+  "Centre No": 101,
+  "Route": "MC II",
+  "College Name": "KUCTE",
+  "Place": "Adoor, Govt HS for Boys,  Adoor, Pathanamthitta"
+ },
+ {
+  "Centre No": 126,
+  "Route": "MC II",
+  "College Name": "KVVS Institute of Technology",
+  "Place": "Kaithaprambu, Adoor"
+ },
+ {
+  "Centre No": 252,
+  "Route": "MC II",
+  "College Name": "Sree Narayana Institute of Technology",
+  "Place": "Ezhamkulam, Pathanamthitta"
+ },
+ {
+  "Centre No": 281,
+  "Route": "MC II",
+  "College Name": "Bishop Moore College for the Hearing Impaired",
+  "Place": "Thazhathumon Manakkala, Adoor"
+ },
+ {
+  "Centre No": 290,
+  "Route": "MC II",
+  "College Name": "Mar Chrysostom College Paranthal",
+  "Place": "Adoor"
+ },
+ {
+  "Centre No": 292,
+  "Route": "MC II",
+  "College Name": "Mater Dei CMI College",
+  "Place": "Enathu"
+ },
+ {
+  "Centre No": 298,
+  "Route": "MC II",
+  "College Name": "Mar Ivanios College",
+  "Place": "Kallumala, Mavelikara, Alappuzha"
+ },
+ {
+  "Centre No": 300,
+  "Route": "MC II",
+  "College Name": "College ofApplied Science",
+  "Place": "Perissery, Cheanganoor"
+ },
+ {
+  "Centre No": 327,
+  "Route": "MC II",
+  "College Name": "UIT",
+  "Place": "Chengannur"
+ },
+ {
+  "Centre No": 943,
+  "Route": "MC II",
+  "College Name": "UIM",
+  "Place": "Ezhamkulam, Parakode, Adoor"
+ },
+ {
+  "Centre No": 965,
+  "Route": "MC II",
+  "College Name": "UIT",
+  "Place": "Pathanamthitta, Veluthampy Memorial UPS, Mannady"
+ },
+ {
+  "Centre No": 22,
+  "Route": "NH I",
+  "College Name": "A. J. College of Science & Technology",
+  "Place": "Thonnakkal, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 23,
+  "Route": "NH I",
+  "College Name": "Govt. College",
+  "Place": "Attingal, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 24,
+  "Route": "NH I",
+  "College Name": "Sree Narayana College",
+  "Place": "Sivagiri, Varkala, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 25,
+  "Route": "NH I",
+  "College Name": "Haji C. H. Mohammed Koya Memorial College of Advanced\nStudies",
+  "Place": "Chavarcode, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 27,
+  "Route": "NH I",
+  "College Name": "Sree Narayana College",
+  "Place": "Chathannur, Kollam"
+ },
+ {
+  "Centre No": 28,
+  "Route": "NH I",
+  "College Name": "Mannam Memorial NSS College",
+  "Place": "Kottiyam, Kollam"
+ },
+ {
+  "Centre No": 29,
+  "Route": "NH I",
+  "College Name": "Sree Narayana College",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 30,
+  "Route": "NH I",
+  "College Name": "Sree Narayana College for Women",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 31,
+  "Route": "NH I",
+  "College Name": "Fatima Mata National College",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 32,
+  "Route": "NH I",
+  "College Name": "Thangal Kunju Musaliar College of Arts & Science",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 34,
+  "Route": "NH I",
+  "College Name": "Devaswom Board College",
+  "Place": "Sasthamcottah, Kollam"
+ },
+ {
+  "Centre No": 36,
+  "Route": "NH I",
+  "College Name": "Thangal Kunju Musaliar Institute of Management",
+  "Place": "Musaliar Hills, Karuvelil, Kollam"
+ },
+ {
+  "Centre No": 68,
+  "Route": "NH I",
+  "College Name": "Thangal Kunju Musaliar College of Engineering",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 76,
+  "Route": "NH I",
+  "College Name": "Karmela Rani Training College",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 83,
+  "Route": "NH I",
+  "College Name": "Fatima Memorial Training College",
+  "Place": "Pallimukku, Kollam"
+ },
+ {
+  "Centre No": 89,
+  "Route": "NH I",
+  "College Name": "UIT",
+  "Place": "West Kollam, Thirumullavaram, University of Kerala, Govt. High School Campus, Mulamkadakom, Kollam"
+ },
+ {
+  "Centre No": 95,
+  "Route": "NH I",
+  "College Name": "KUCTE",
+  "Place": "Kollam, GHSS for Boys, Kollam"
+ },
+ {
+  "Centre No": 121,
+  "Route": "NH I",
+  "College Name": "Younus College of Engineering and Technology",
+  "Place": "Vadakkevila, Kollam"
+ },
+ {
+  "Centre No": 137,
+  "Route": "NH I",
+  "College Name": "Sree Narayana College of Technology",
+  "Place": "Vadakkevila, Kollam"
+ },
+ {
+  "Centre No": 145,
+  "Route": "NH I",
+  "College Name": "Sree Narayana Institute of Technology",
+  "Place": "Vadakkevila, Kollam"
+ },
+ {
+  "Centre No": 153,
+  "Route": "NH I",
+  "College Name": "KTCT College of Teacher Education",
+  "Place": "Kaduvayil, Thottakadu"
+ },
+ {
+  "Centre No": 164,
+  "Route": "NH I",
+  "College Name": "Sri Narayana Training College",
+  "Place": "Sreekandeswaram, Poochakkal, Alappuzha"
+ },
+ {
+  "Centre No": 165,
+  "Route": "NH I",
+  "College Name": "Mannam Foundation Centre for Education Research",
+  "Place": "Poruvazhy, Ppuzha, Edakkad, Kollam"
+ },
+ {
+  "Centre No": 167,
+  "Route": "NH I",
+  "College Name": "Fathima Memorial Training College",
+  "Place": "Mylapoor, Umayanalloor, Kollam"
+ },
+ {
+  "Centre No": 169,
+  "Route": "NH I",
+  "College Name": "Milleth College of Teacher Education",
+  "Place": "Sooranad, Kollam"
+ },
+ {
+  "Centre No": 195,
+  "Route": "NH I",
+  "College Name": "METCA Institute of Teacher Education",
+  "Place": "Chavarcode, Palayamkunnu"
+ },
+ {
+  "Centre No": 200,
+  "Route": "NH I",
+  "College Name": "Badhriya Training College",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 205,
+  "Route": "NH I",
+  "College Name": "Haneefa Kunju Memorial College of Education",
+  "Place": "Umayanalloor , Kollam"
+ },
+ {
+  "Centre No": 209,
+  "Route": "NH I",
+  "College Name": "College of Applied Sciences",
+  "Place": "Kundara, Kollam"
+ },
+ {
+  "Centre No": 212,
+  "Route": "NH I",
+  "College Name": "Azeezia College of Nursing",
+  "Place": "Meeyannor, Kollam"
+ },
+ {
+  "Centre No": 218,
+  "Route": "NH I",
+  "College Name": "Azeezia Institute of Medical Sciences and Research",
+  "Place": "Meeyannoor, Kollam"
+ },
+ {
+  "Centre No": 232,
+  "Route": "NH I",
+  "College Name": "Valiya Koonambaikulathamma College of Engineering &\nTechnology",
+  "Place": "Chavarcode, Ayroor, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 235,
+  "Route": "NH I",
+  "College Name": "Travancore Medical College",
+  "Place": "Mylapore, Kollam"
+ },
+ {
+  "Centre No": 255,
+  "Route": "NH I",
+  "College Name": "Sankar Institute of Science and Technology Management",
+  "Place": "Thazham South, Chathannoor"
+ },
+ {
+  "Centre No": 260,
+  "Route": "NH I",
+  "College Name": "NSS Law College",
+  "Place": "Kottiyam, Kollam"
+ },
+ {
+  "Centre No": 261,
+  "Route": "NH I",
+  "College Name": "Sree Narayana Guru College of Legal Studies",
+  "Place": "Kollam"
+ },
+ {
+  "Centre No": 269,
+  "Route": "NH I",
+  "College Name": "Sree Narayana Guru College of Advanced Studies",
+  "Place": "Sivagiri, Varkala"
+ },
+ {
+  "Centre No": 274,
+  "Route": "NH I",
+  "College Name": "UIT",
+  "Place": "Sasthamcotta, Kollam"
+ },
+ {
+  "Centre No": 276,
+  "Route": "NH I",
+  "College Name": "UIT",
+  "Place": "MGTH School Murari Junction Mukhathala Kollam"
+ },
+ {
+  "Centre No": 285,
+  "Route": "NH I",
+  "College Name": "Don Bosco College",
+  "Place": "Kottiyam, Kollam"
+ },
+ {
+  "Centre No": 289,
+  "Route": "NH I",
+  "College Name": "KTCT College of Arts and Science",
+  "Place": "Kallabalam, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 296,
+  "Route": "NH I",
+  "College Name": "Institute of Fashion Technology",
+  "Place": "Kerala (IFTK) Kundara, Kollam"
+ },
+ {
+  "Centre No": 302,
+  "Route": "NH I",
+  "College Name": "St. Mary's College",
+  "Place": "Mulavana Kundara, Kollam"
+ },
+ {
+  "Centre No": 303,
+  "Route": "NH I",
+  "College Name": "NSS Arts and Science College Perayam",
+  "Place": "Kundara, Kollam"
+ },
+ {
+  "Centre No": 311,
+  "Route": "NH I",
+  "College Name": "UIT Regional Centre",
+  "Place": "Azhoor, (Chirayinkeeshu) Seva Samajam Building, Perumkuzhi Junction, Azhoor"
+ },
+ {
+  "Centre No": 323,
+  "Route": "NH I",
+  "College Name": "Sri Sathyasai Arts and Science College",
+  "Place": "Thonnakkal"
+ },
+ {
+  "Centre No": 324,
+  "Route": "NH I",
+  "College Name": "UIT",
+  "Place": "Paravur"
+ },
+ {
+  "Centre No": 329,
+  "Route": "NH I",
+  "College Name": "UIT",
+  "Place": "Varkala"
+ },
+ {
+  "Centre No": 942,
+  "Route": "NH I",
+  "College Name": "UIM",
+  "Place": "Varkala, Gurudev Building, Sivagiri"
+ },
+ {
+  "Centre No": 944,
+  "Route": "NH I",
+  "College Name": "UIM",
+  "Place": "Mundakkal, Technopark Building, Near Thumpara Market, Mundakkal Kollam"
+ },
+ {
+  "Centre No": 945,
+  "Route": "NH I",
+  "College Name": "UIM",
+  "Place": "Kundara, JJ Mall, Perinad, Chemmakkad, Kundara, Kollam"
+ },
+ {
+  "Centre No": 966,
+  "Route": "NH I",
+  "College Name": "UIT",
+  "Place": "Vakkom, Nilakkamukku, Vakkom, Kadakkavoor, Thiruvananthapuram"
+ },
+ {
+  "Centre No": 33,
+  "Route": "NH II",
+  "College Name": "B. J. M. Govt. College",
+  "Place": "Chavara"
+ },
+ {
+  "Centre No": 35,
+  "Route": "NH II",
+  "College Name": "Sree Vidhyadhiraja College of Arts & Science",
+  "Place": "Karunagappally, Kollam"
+ },
+ {
+  "Centre No": 44,
+  "Route": "NH II",
+  "College Name": "Milad-E-Sherief Memorial College",
+  "Place": "Kayamkulam"
+ },
+ {
+  "Centre No": 45,
+  "Route": "NH II",
+  "College Name": "T. K. Madhava Memorial College",
+  "Place": "Nangiarkulangara, Alappuzha"
+ },
+ {
+  "Centre No": 46,
+  "Route": "NH II",
+  "College Name": "Sanatana Dharma College",
+  "Place": "Sanathanapuram, Alappuzha"
+ },
+ {
+  "Centre No": 47,
+  "Route": "NH II",
+  "College Name": "St. Joseph's College for Women",
+  "Place": "Alappuzha"
+ },
+ {
+  "Centre No": 48,
+  "Route": "NH II",
+  "College Name": "Sree Narayana College",
+  "Place": "Cherthala, Alappuzha"
+ },
+ {
+  "Centre No": 49,
+  "Route": "NH II",
+  "College Name": "St. Michel's College",
+  "Place": "Cherthala, Alappuzha"
+ },
+ {
+  "Centre No": 50,
+  "Route": "NH II",
+  "College Name": "NSS College",
+  "Place": "Cherthala, Alappuzha"
+ },
+ {
+  "Centre No": 64,
+  "Route": "NH II",
+  "College Name": "Thirumala Devaswom Medical College",
+  "Place": "Alappuzha"
+ },
+ {
+  "Centre No": 90,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Govt Mohammedan's High School Campus, Collectorate, Alappuzha"
+ },
+ {
+  "Centre No": 98,
+  "Route": "NH II",
+  "College Name": "KUCTE",
+  "Place": "Ariyad, Govt. HS for Boys,  Ariyad, Alappuzha"
+ },
+ {
+  "Centre No": 100,
+  "Route": "NH II",
+  "College Name": "KUCTE",
+  "Place": "Kayamkulam, Govt. HS for Boys, Kayamkulam, Alappuzha"
+ },
+ {
+  "Centre No": 108,
+  "Route": "NH II",
+  "College Name": "KVM College of Engineering & Technology",
+  "Place": "Cherthala"
+ },
+ {
+  "Centre No": 114,
+  "Route": "NH II",
+  "College Name": "Member Sree Narayana Pillai Institute of Management and\nTechnology",
+  "Place": "Chavara, Kollam"
+ },
+ {
+  "Centre No": 119,
+  "Route": "NH II",
+  "College Name": "Sree Budha College of Engineering",
+  "Place": "Pattoor, Alappuzha"
+ },
+ {
+  "Centre No": 156,
+  "Route": "NH II",
+  "College Name": "Jameela Beevi Memorial Centre for Teacher Education",
+  "Place": "Kayamkulam"
+ },
+ {
+  "Centre No": 163,
+  "Route": "NH II",
+  "College Name": "Buddha College of Teacher Education",
+  "Place": "Muthukulam North"
+ },
+ {
+  "Centre No": 177,
+  "Route": "NH II",
+  "College Name": "Naipunya School of Management",
+  "Place": "Cherthala"
+ },
+ {
+  "Centre No": 191,
+  "Route": "NH II",
+  "College Name": "Sree Narayana Guru Memorial Arts & Science College",
+  "Place": "Thuravoor, Alappuzha"
+ },
+ {
+  "Centre No": 198,
+  "Route": "NH II",
+  "College Name": "Valiyam Memorial College of Teacher Education",
+  "Place": "Edappallikotta, Chavara"
+ },
+ {
+  "Centre No": 201,
+  "Route": "NH II",
+  "College Name": "Sobha College of Teacher Education",
+  "Place": "SL Puram , Cherthala"
+ },
+ {
+  "Centre No": 213,
+  "Route": "NH II",
+  "College Name": "SNGM Catering Technology",
+  "Place": "Valamangalam South, Thuravoor Cherthala"
+ },
+ {
+  "Centre No": 215,
+  "Route": "NH II",
+  "College Name": "Snehacharya Institute of Management & Technology\nKaruvatta North",
+  "Place": "Karuvatta Alappuzha"
+ },
+ {
+  "Centre No": 216,
+  "Route": "NH II",
+  "College Name": "College of Engineering & Management",
+  "Place": "Punnapra, Vadackal, Alappuzha"
+ },
+ {
+  "Centre No": 230,
+  "Route": "NH II",
+  "College Name": "Vellappally Natesan College of Engineering",
+  "Place": "Kattachira, Mavelikara"
+ },
+ {
+  "Centre No": 234,
+  "Route": "NH II",
+  "College Name": "KVM College of Special Education",
+  "Place": "Cherthala"
+ },
+ {
+  "Centre No": 244,
+  "Route": "NH II",
+  "College Name": "Institute of Management & Technology",
+  "Place": "Punnapra, Alappuzha"
+ },
+ {
+  "Centre No": 247,
+  "Route": "NH II",
+  "College Name": "Govt. Arts and Science College",
+  "Place": "Ambalappuzha, Alappuzha"
+ },
+ {
+  "Centre No": 259,
+  "Route": "NH II",
+  "College Name": "College of Applied Sciences",
+  "Place": "Karthikapally, Harippad, Alappuzha"
+ },
+ {
+  "Centre No": 268,
+  "Route": "NH II",
+  "College Name": "Sree Narayana Guru College of Advanced Studies",
+  "Place": "Cherthala, Alappuzha"
+ },
+ {
+  "Centre No": 272,
+  "Route": "NH II",
+  "College Name": "S D V College of Arts & Applied Science",
+  "Place": "Alappuzha"
+ },
+ {
+  "Centre No": 275,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Alappuzha, Nadalakal Buildings Near Nss School Karuvatta , Haripad"
+ },
+ {
+  "Centre No": 277,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Government JBLPS Mannar, Alappuzha"
+ },
+ {
+  "Centre No": 283,
+  "Route": "NH II",
+  "College Name": "Carmal College",
+  "Place": "Muhamma, Alappuzha"
+ },
+ {
+  "Centre No": 291,
+  "Route": "NH II",
+  "College Name": "Mar Gregorios College of Arts and Science",
+  "Place": "Punnappra, Alappuzha"
+ },
+ {
+  "Centre No": 294,
+  "Route": "NH II",
+  "College Name": "Sree Naryana Guru college of Advanced Studies",
+  "Place": "Nangiarkulangara"
+ },
+ {
+  "Centre No": 304,
+  "Route": "NH II",
+  "College Name": "Michaels Institute of Management and Technology Mayithara",
+  "Place": "Cherthal, Alappuzha"
+ },
+ {
+  "Centre No": 306,
+  "Route": "NH II",
+  "College Name": "KVM College of Arts and Science",
+  "Place": "Kokkothamangalam, Cherthala, Alappuzha"
+ },
+ {
+  "Centre No": 307,
+  "Route": "NH II",
+  "College Name": "Govt. Arts & Science College",
+  "Place": "Thazhava, Karunagappally"
+ },
+ {
+  "Centre No": 317,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Pathiyoor, Kayamkulam"
+ },
+ {
+  "Centre No": 318,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Muhamma, Alappuzha"
+ },
+ {
+  "Centre No": 319,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Mannancherry, Alappuzha"
+ },
+ {
+  "Centre No": 320,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Muthukulam, Alappuzha"
+ },
+ {
+  "Centre No": 325,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Aroor, Alappuzha"
+ },
+ {
+  "Centre No": 326,
+  "Route": "NH II",
+  "College Name": "UIT",
+  "Place": "Bharanikavu"
+ },
+ {
+  "Centre No": 335,
+  "Route": "NH II",
+  "College Name": "Guru Nithya Chaithanya Yathi College of Law and Research\nCentre",
+  "Place": "Kayamkulam"
+ },
+ {
+  "Centre No": 940,
+  "Route": "NH II",
+  "College Name": "UIM",
+  "Place": "Alappuzha, Vadakkal, Near SD College, Alappuzha"
+ }
+]
