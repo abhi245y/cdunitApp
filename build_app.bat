@@ -1,0 +1,1 @@
+pyinstaller --onefile -w 'addBundlesUI.py'

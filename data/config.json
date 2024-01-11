@@ -1,0 +1,4 @@
+{
+  "routes": ["Local I","Local II", "MC I", "MC II", "NH I", "NH II" ],
+  "qp_series" : ["M", "N", "P"]
+}
