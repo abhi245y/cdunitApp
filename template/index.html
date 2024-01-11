@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link
+      href="https://cdn.datatables.net/v/ju/dt-1.13.8/af-2.6.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.datatables.net/v/ju/dt-1.13.8/af-2.6.0/sc-2.3.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+    <link
+      href="{{ url_for('static',filename='styles/style.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/postCalls.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/form-submission-handler.js')}}"></script>
+    <title>CD Unit</title>
+  </head>
+  <body>
+    <nav class="container-fluid">
+      <ul>
+        <li><h4>CD UNIT</h4></li>
+      </ul>
+      <ul>
+        <li><a href="#">Bundles List</a></li>
+        <li><a href="#">College List</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+    <main>
+      <div class="container">
+        <article>
+          <hgroup>
+            <h2>Add Bundles</h2>
+            <p>Enter collected bundle details to add it to database.</p>
+          </hgroup>
+          <form id="add-bundles-form">
+            <div class="grid">
+              <select required id="routes-select">
+                <option selected disabled hidden value="">Select route</option>
+              </select>
+              <select required id="messengers-select">
+                <option selected disabled hidden value="">
+                  Select Messenger
+                </option>
+              </select>
+              <input type="date" aria-label="Date" id="received-date-input" />
+            </div>
+            <select name="college-select-tag" required id="college-select">
+              <option selected disabled hidden value="">
+                Select a College
+              </option>
+            </select>
+            <div class="grid">
+              <div role="group">
+                <select required style="width: 60%" id="qp-series-select">
+                  <option selected disabled hidden value="">
+                    Select QP Series
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Enter QP Code"
+                  aria-label="Text"
+                  id="qp-code-input"
+                />
+              </div>
+              <input
+                type="number"
+                id="bundle-quantity-input"
+                class="p-input"
+                value="1"
+                style="width: 15%"
+              />
+            </div>
+            <fieldset>
+              <legend>Additional Info:</legend>
+              <input type="checkbox" id="nil-check" name="nil" />
+              <label htmlFor="nil">Nil</label>
+              <input
+                type="checkbox"
+                id="malpractice-check"
+                name="malpractice"
+              />
+              <label htmlFor="malpractice">Malpractice</label>
+            </fieldset>
+            <textarea
+              placeholder="Remarks"
+              id="remarks-textarea"
+              aria-label="Remarks"
+            ></textarea>
+            <div class="grid">
+              <input type="submit" id="add-bundles-button" value="Add Bundle" />
+              <input type="reset" id="reset-button" />
+            </div>
+          </form>
+        </article>
+      </div>
+
+      <div class="container-fluid" style="width: 80%">
+        <article>
+          <figure>
+            <table class="bundles-list-table">
+              <thead>
+                <tr>
+                  <th scope="col">Series</th>
+                  <th scope="col">QP Code</th>
+                  <th scope="col">Nil</th>
+                  <th scope="col">Received Date</th>
+                  <th scope="col">Messenger</th>
+                  <th scope="col">College Name</th>
+                  <th scope="col">Remarks</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+            </table>
+          </figure>
+        </article>
+      </div>
+
+      <dialog id="modal-edit-row-entry">
+        <article>
+          <a
+            href="#close"
+            aria-label="Close"
+            class="close"
+            data-target="modal-example"
+            onClick="toggleModal(event)"
+          >
+          </a>
+          <h3>Confirm your action!</h3>
+          <p>
+            Cras sit amet maximus risus. Pellentesque sodales odio sit amet
+            augue finibus pellentesque. Nullam finibus risus non semper euismod.
+          </p>
+          <footer>
+            <a
+              href="#cancel"
+              role="button"
+              class="secondary"
+              data-target="modal-example"
+              onClick="toggleModal(event)"
+            >
+              Cancel
+            </a>
+            <a
+              href="#confirm"
+              role="button"
+              data-target="modal-example"
+              onClick="toggleModal(event)"
+            >
+              Confirm
+            </a>
+          </footer>
+        </article>
+      </dialog>
+    </main>
+  </body>
+  <script>
+    $(document).ready(function () {
+      $(".bundles-list-table").DataTable({
+        language: {
+          emptyTable: "Please add data to Table",
+        },
+      });
+    });
+  </script>
+</html>

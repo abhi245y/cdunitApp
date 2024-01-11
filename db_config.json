@@ -1,5 +1,1 @@
-{
-    "address": "localhost",
-    "port": "27017",
-    "QT_QPA_PLATFORM": true
-}
+{ "address": "localhost", "port": "27017" }
