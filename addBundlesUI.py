@@ -248,7 +248,8 @@ class Ui_AddBundleDetails(object):
 
         AddBundleDetails.keyPressEvent = self.pressEnter
 
-        # self.twBundleDetails.setSelectionMode(QAbstractItemView.MultiSelection)
+        self.twBundleDetails.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.twBundleDetails.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.cbCollegeList.setEnabled(False)
         self.loadComboBoxes()
         self.sortListThread()
@@ -299,12 +300,21 @@ class Ui_AddBundleDetails(object):
         msgBox.exec_()
 
     def deleteSelectedRow(self):
-        # print("Invoked", self.twBundleDetails.selectionModel().selection())
-        for ix in self.twBundleDetails.selectionModel().selection():
-            for index in ix.indexes():
-                # print(index.row())
-                self.twBundleDetails.removeRow(index.row())
-            # print('Selected Cell Location Row: {0}, Column: {1}'.format(ix.row(), ix.column()))
+        selected_rows = list(set(index.row() for index in self.twBundleDetails.selectedIndexes()))
+        if not selected_rows:
+            QtWidgets.QMessageBox.warning(self.twBundleDetails, 'Warning', 'No rows selected!')
+            return
+
+        confirmation = QtWidgets.QMessageBox.question(self.twBundleDetails, 'Confirmation', 'Are you sure you want to delete the selected rows?',
+                                              QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+
+
+        if confirmation == QtWidgets.QMessageBox.Yes:
+
+            for row in sorted(selected_rows, reverse=True):
+                self.twBundleDetails.removeRow(row)
+
+            QtWidgets.QMessageBox.information(self.twBundleDetails, 'Success', 'Selected rows deleted successfully!')
 
     def pressEnter(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
