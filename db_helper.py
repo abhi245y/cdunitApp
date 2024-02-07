@@ -2,6 +2,10 @@ import json
 
 import pymongo
 import os
+from random import randint
+from datetime import datetime, timedelta
+import random
+import threading
 
 filename = 'db_config.json'
 
@@ -72,3 +76,36 @@ def check_db_connection():
         return True
     except Exception as e:
         return False
+
+def generateDummyData(entries):
+    dataConfig, messengersDetails = getConfig()
+    messengers = [messenger['name'] for messenger in messengersDetails]
+    routes = dataConfig['routes']
+    qp_series_list = dataConfig['qp_series']
+
+    for _ in range(entries):
+        messenger = messengers[randint(0, len(messengers)-1)]
+        route = routes[randint(0, len(routes)-1)]
+       
+
+        pipeline = [
+        {'$sample': {'size': 1}},
+        {'$project': {'_id': 0, 'College Name': 1, 'Place': 1}} 
+        ]
+        cursor = cdUnitDB['collegeList'].aggregate(pipeline, allowDiskUse=True)
+        for doc in cursor:
+            document = doc
+            break
+        college_name =  f"{document['College Name']} { document['Place']}" 
+        random_date = datetime.today() - timedelta(days=random.randint(0, 90))
+        same_date_entry_limit = randint(5,121)
+        data_to_insert = []
+        for _ in range(same_date_entry_limit):
+            qp_code =randint(1000, 9000)
+            qp_series = qp_series_list[randint(0, len(qp_series_list)-1)]
+            data = {"qpSeries": qp_series, "qpCode": qp_code, "isNil": False,
+                              "receivedDate": datetime.strptime(random_date.strftime('%a %b %d %Y'), '%a %b %d %Y'), "messenger": messenger,
+                              "collegeName": college_name, 'remarks':''}
+            print(data)
+            data_to_insert.append(data)
+        print(addDataToDB("bundleDetails",data_to_insert))
