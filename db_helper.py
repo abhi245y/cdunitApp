@@ -5,7 +5,9 @@ import os
 from random import randint
 from datetime import datetime, timedelta
 import random
-import threading
+
+from tqdm import tqdm
+import time
 
 filename = 'db_config.json'
 
@@ -77,35 +79,63 @@ def check_db_connection():
     except Exception as e:
         return False
 
-def generateDummyData(entries):
+def getAllBundles(query={}):
+    return cdUnitDB["bundleDetails"].find(query, {"_id": 0}).limit(100)
+
+def generateDummyData(total_iterations):
     dataConfig, messengersDetails = getConfig()
     messengers = [messenger['name'] for messenger in messengersDetails]
     routes = dataConfig['routes']
     qp_series_list = dataConfig['qp_series']
+    
+    progress_bar = tqdm(
+        total=total_iterations,
+        desc='Generating dummy data',
+        bar_format="{l_bar}{bar} | {n_fmt}/{total_fmt} [Elapsed: {elapsed}, ETA: {remaining}]"
+    )
 
-    for _ in range(entries):
+    start_time = time.time()
+    for i in range(total_iterations):
         messenger = messengers[randint(0, len(messengers)-1)]
         route = routes[randint(0, len(routes)-1)]
-       
 
         pipeline = [
-        {'$sample': {'size': 1}},
-        {'$project': {'_id': 0, 'College Name': 1, 'Place': 1}} 
+            {'$sample': {'size': 1}},
+            {'$project': {'_id': 0, 'College Name': 1, 'Place': 1}}
         ]
         cursor = cdUnitDB['collegeList'].aggregate(pipeline, allowDiskUse=True)
-        for doc in cursor:
-            document = doc
-            break
-        college_name =  f"{document['College Name']} { document['Place']}" 
+        document = next(cursor) 
+
+        college_name = f"{document['College Name']} {document['Place']}"
+        same_date_entry_limit = randint(2, 10)
         random_date = datetime.today() - timedelta(days=random.randint(0, 90))
-        same_date_entry_limit = randint(5,121)
+
         data_to_insert = []
         for _ in range(same_date_entry_limit):
-            qp_code =randint(1000, 9000)
+            qp_code = randint(1000, 9000)
             qp_series = qp_series_list[randint(0, len(qp_series_list)-1)]
-            data = {"qpSeries": qp_series, "qpCode": qp_code, "isNil": False,
-                              "receivedDate": datetime.strptime(random_date.strftime('%a %b %d %Y'), '%a %b %d %Y'), "messenger": messenger,
-                              "collegeName": college_name, 'remarks':''}
-            print(data)
-            data_to_insert.append(data)
-        print(addDataToDB("bundleDetails",data_to_insert))
+            for _ in range(randint(1,5)): 
+                data = {
+                    "qpSeries": qp_series,
+                    "qpCode": str(qp_code),
+                    "isNil": False,
+                    "receivedDate": datetime.strptime(random_date.strftime('%a %b %d %Y'), '%a %b %d %Y'),
+                    "messenger": messenger,
+                    "collegeName": college_name,
+                "remarks": ""
+                }
+                data_to_insert.append(data)
+        addDataToDB("bundleDetails", data_to_insert)
+
+        progress_bar.update()
+
+        elapsed_time = time.time() - start_time
+        iterations_remaining = total_iterations - i - 1
+        if iterations_remaining > 0:
+            eta = elapsed_time / (i + 1) * iterations_remaining
+        else:
+            eta = 0
+        progress_bar.set_postfix(elapsed=f"{elapsed_time:.2f}s", remaining=f"{eta:.2f}s")
+    progress_bar.close()
+
+# generateDummyData(100)

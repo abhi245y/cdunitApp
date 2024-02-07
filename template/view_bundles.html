@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css"
+    />
+
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
+    <script src="{{url_for('static', filename='scripts/populate-table.js')}}"></script>
+  </head>
+  <body>
+    <main class="container-fluid">
+      <table class="dataframe" id="myTable">
+        <thead>
+          <tr style="text-align: right">
+            <th>collegeName</th>
+            <th>isNil</th>
+            <th>messenger</th>
+            <th>qpCode</th>
+            <th>qpSeries</th>
+            <th>receivedDate</th>
+            <th>remarks</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+  </body>
+</html>
