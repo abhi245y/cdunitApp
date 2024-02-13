@@ -46,4 +46,4 @@ def load_tables():
     return [ sort_keys(doc, ['qpSeries','qpCode','isNil','receivedDate','messenger','collegeName','remarks']) for doc in db_helper.getAllBundles()]
         
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
