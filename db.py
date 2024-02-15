@@ -26,6 +26,13 @@ client = pymongo.MongoClient("mongodb://{}/".format(address))
 
 cdUnitDB = client["cd_unit"]
 
+def check_db_connection():
+    try:
+        client.admin.command("ping")
+        return True
+    except Exception as e:
+        return False
+
 
 def initializeDataBase():
     collegeCol = cdUnitDB["collegeList"]
