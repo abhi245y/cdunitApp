@@ -5,9 +5,8 @@ import pymongo
 from bson.objectid import ObjectId
 from datetime import datetime, timedelta, time
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QSize
-from PyQt5.QtCore import Qt
-from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import QSize, pyqtSignal, QTimer, Qt
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QTableWidgetItem
 import distro
 import os
@@ -15,6 +14,8 @@ import json
 import db
 import pytz
 import math
+import threading
+import time
 
 
 
@@ -123,8 +124,6 @@ class RecentDataWindow(QtWidgets.QWidget):
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         self.leSearchTable.textChanged.connect(self.search)
 
-        # self.leSearchTable.textChanged.connect(self.onEditTextChanged)
-
 
         # Table View
         self.table = QtWidgets.QTableWidget(self)
@@ -145,22 +144,63 @@ class RecentDataWindow(QtWidgets.QWidget):
         header.setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
         layout.addWidget(self.table)
 
+        self.table.horizontalHeader().sectionClicked.connect(self.sort_columns)
+
+        self.Hlayout = QtWidgets.QHBoxLayout()
+
         self.bottomLineText = QtWidgets.QLabel("")
-        layout.addWidget(self.bottomLineText)
+        
+        self.Hlayout.addWidget(self.bottomLineText)
+
+        self.db_label = QtWidgets.QLabel()
+        self.pixmap = QtGui.QPixmap("./db_okay.png")
+        self.db_label.setPixmap(self.pixmap)
+        self.Hlayout.addStretch()
+        self.Hlayout.addWidget(self.db_label)
+
+        layout.addLayout(self.Hlayout)
+
 
         self.setLayout(layout)
         self.resize(1000, 800)
         self.fetch_recent_data()
-        # self.dbOnChangeListner()
-        # db.dbWatcher('bundleDetails', self.dbOnChangeListner)
-        # self.table.hideColumn(8)
-        # RecentDataWindow.keyPressEvent = self.pressEnter
-        # self.update()
+
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_status)
+        interval = 5000
+        self.timer.start(interval)
+
+    def update_status(self):
+        db_status = db.check_db_connection()
+        if db_status:
+            self.pixmap = QtGui.QPixmap("./db_okay.png")
+            self.db_label.setPixmap(self.pixmap)
+        else:
+            self.pixmap = QtGui.QPixmap("./db_failed.png")
+            self.db_label.setPixmap(self.pixmap)
     
-    # def dbOnChangeListner(self):
-    #     change_stream = collection.watch()
-    #     for change in change_stream:
-    #         self.fetch_recent_data()
+    def sort_columns(self, column_index):
+        column_labels = [self.table.horizontalHeaderItem(i).text().replace('▼ ','').replace('▲ ','') for i in range(9)]
+
+        if column_index in [0, 1, 3, 4, 5,6]:
+            # Initialize sort order indicator if not set
+            self._sort_order = getattr(self, '_sort_order', Qt.AscendingOrder)
+
+            # Toggle order and update header text
+            if self._sort_order == Qt.AscendingOrder:
+                new_order = Qt.DescendingOrder
+                arrow_text = '▲ '+column_labels[column_index]
+            else:
+                new_order = Qt.AscendingOrder
+                arrow_text = '▼ '+column_labels[column_index]
+
+            self.table.sortItems(column_index, new_order)
+            self.table.horizontalHeaderItem(column_index).setText(arrow_text)
+
+            # Update _sort_order for next click
+            self._sort_order = new_order
+        else:
+            return
 
     def onItemSelected(self):
         if len(self.table.selectedItems()) != 0:
@@ -198,20 +238,6 @@ class RecentDataWindow(QtWidgets.QWidget):
                 self.table.setRowHidden(row, False)
             else:
                 self.table.setRowHidden(row, True)
-
-
-    # def search(self, s):
-    #     items = self.table.findItems(s, Qt.MatchContains)
-    #     if items:  # we have found something
-    #         item = items[0]  # take the first
-    #         self.table.setCurrentItem(item)
-    #         # for item in items:
-    #         #     # item = items[0]  # take the first
-    #         #     self.table.setCurrentItem(item)
-    #         #     if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-    #         #         pass
-    #         #     else:
-    #         #         time.sleep()
 
     def get_objectid_from_specific_date(self, qDate,hour=0, minute=0, second=0, timezone='UTC'):
         """Return ObjectId for a specific date and time."""
@@ -251,12 +277,7 @@ class RecentDataWindow(QtWidgets.QWidget):
     def fetch_recent_data(self):
         self.table.clearContents()
         self.table.setRowCount(0)
-        # Connect to MongoDB
-        # client = MongoClient('localhost', 27017)
-        # db = client['cd_unit']
-        # collection = db['bundleDetails']
-
-        # Fetch data from the collection
+ 
 
         doc = collection.find_one(sort=[("_id", -1)])  # Get the last added document
         last_oid = doc["_id"]
@@ -266,18 +287,10 @@ class RecentDataWindow(QtWidgets.QWidget):
         # print(self.start_date_edit.date().year(),self.start_date_edit.date().month(),self.start_date_edit.date().day())
         start_oid = self.get_objectid_from_specific_date(qDate=startQDate, timezone='Asia/Kolkata')
 
-        # endQDate = self.end_date_edit.date()
-        # last_oid = self.get_objectid_from_specific_date(qDate=endQDate,hour=18, minute=0, timezone='Asia/Kolkata')
-        # print(last_oid)
-
         print(start_oid)
         print(ObjectId(start_oid).generation_time, ObjectId(last_oid).generation_time)
         
         datas = list(collection.find({"_id": {"$gte": start_oid}}).sort([("_id", pymongo.DESCENDING)]))
-
-        # self.table.setRowCount(len(data))
-        # keys = ["Date of Entry", "QP Series", "QP Code", "Received Date", "Messenger", "College Name", "Nill Bundle", "Remarks", "DB _id"]
-        # print(datas[0]) 
 
         for data in datas:
             if isinstance(data['receivedDate'], datetime):   
@@ -314,9 +327,6 @@ class RecentDataWindow(QtWidgets.QWidget):
         confirmation = QtWidgets.QMessageBox.question(self, 'Confirmation', 'Are you sure you want to delete the selected rows?',
                                                       QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if confirmation == QtWidgets.QMessageBox.Yes:
-            # client = MongoClient('localhost', 27017)
-            # db = client['cd_unit']
-            # collection = db['bundleDetails']
 
             for row in sorted(selected_rows, reverse=True):
                 _id = self.table.item(row, 8).text()
@@ -326,19 +336,26 @@ class RecentDataWindow(QtWidgets.QWidget):
             QtWidgets.QMessageBox.information(self, 'Success', 'Selected rows deleted successfully!')
 
     def update_changes(self):
-        confirmation = QtWidgets.QMessageBox.question(self, 'Confirmation', 'Are you sure you want to save the changes?',
+        def add_data_to_db(self):
+            confirmation = QtWidgets.QMessageBox.question(self, 'Confirmation', 'Are you sure you want to save the changes?',
                                                       QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-        if confirmation == QtWidgets.QMessageBox.Yes:
-            
+            if confirmation == QtWidgets.QMessageBox.Yes:
+                keys = ["_id", "qpSeries", "qpCode", "receivedDate", "messenger", "collegeName", "isNull", "remarks"]
+                for row in range(self.table.rowCount()):
+                    updated_data = {key: self.table.item(row, col).text() for col, key in enumerate(keys)}
+                    updated_data["_id"] = ObjectId(updated_data["_id"])
+                    collection.replace_one({"_id": updated_data["_id"]}, updated_data)
 
-            keys = ["_id", "qpSeries", "qpCode", "receivedDate", "messenger", "collegeName", "isNull", "remarks"]
-            for row in range(self.table.rowCount()):
-                updated_data = {key: self.table.item(row, col).text() for col, key in enumerate(keys)}
-                updated_data["_id"] = ObjectId(updated_data["_id"])
-                collection.replace_one({"_id": updated_data["_id"]}, updated_data)
+                QtWidgets.QMessageBox.information(self, 'Success', 'Changes saved successfully!')
 
-            QtWidgets.QMessageBox.information(self, 'Success', 'Changes saved successfully!')
-
+        if db.check_db_connection():
+            add_data_to_db(self)
+        else:
+            reply = QMessageBox.question(self, 'Database Error', 'Database connection failed. Try again?',
+                                         QMessageBox.Yes | QMessageBox.Cancel, QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                update_changes(self)
+    
     def update(self):
         rowCount = self.table.rowCount()
         columnCount = self.table.columnCount()
@@ -367,11 +384,6 @@ class RecentDataWindow(QtWidgets.QWidget):
                 for key in doc.keys():
                     if query[key] != doc[key]:
                         collection.update_one({"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
-            #             print(key, 'query:',query[key] ,'type:',type(query[key]),'doc:',doc[key] ,'type:',type(doc[key]))
-            #             print(query['_id'])
-            #             print(doc)
-            #             print(query)
-            # break
 
     def update_database_changes(self):
         # 1. Retrieve Data from the Table
@@ -386,11 +398,6 @@ class RecentDataWindow(QtWidgets.QWidget):
                     # print(row_data,'\n')
             table_data.append(row_data)
 
-        # 2. Retrieve Data from the Database
-        # (Assuming a MongoClient connection and database/collection have been established as `db` and `collection`)
-        # client = MongoClient()  # Connection parameters might be needed here
-        # db = client["your_database_name"]
-        # collection = db["your_collection_name"]
         db_data = list(collection.find({}))
 
         # 3. Compare the Data
@@ -419,8 +426,6 @@ class RecentDataWindow(QtWidgets.QWidget):
             pass
             # collection.update_one({"_id": row_update["_id"]}, {"$set": row_update["changes"]})
 
-        # Optionally, provide feedback to the user about the number of rows updated
-        # return len(rows_to_update)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
