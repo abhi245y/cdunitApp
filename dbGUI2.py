@@ -3,11 +3,12 @@ from PyQt5 import QtWidgets, QtGui
 from pymongo import MongoClient
 import pymongo
 from bson.objectid import ObjectId
+from threading import Thread
 from datetime import datetime, timedelta, time
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QSize, pyqtSignal, QTimer, Qt
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtCore import QSize, pyqtSignal, QTimer, Qt,QThread,QRunnable,QObject,QThreadPool
+from PyQt5.QtWidgets import QTableWidgetItem,QMainWindow, QLabel, QVBoxLayout, QWidget, QProgressBar,QApplication, QMessageBox
 import distro
 import os
 import json
@@ -16,8 +17,6 @@ import pytz
 import math
 import threading
 import time
-
-
 
 filename = 'db_config.json'
 
@@ -29,8 +28,77 @@ if QT_QPA_PLATFORM_ENABLED == True:
     if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
         os.environ["QT_QPA_PLATFORM"] = "xcb"
 
+db_status = "Checking"
 
 collection = db.cdUnitDB['bundleDetails']
+
+class TaskSignals(QObject):
+    finished = pyqtSignal()
+
+class UpdateDatabaseTask(QRunnable):
+    def __init__(self, data):
+        super().__init__()
+        self.signals = TaskSignals()
+        self.data = data
+
+    def run(self):
+        rowCount = len(self.data)
+        for row in range(rowCount):
+            rowData = self.data[row]
+            query = {"_id": rowData[8], "qpSeries": rowData[1], "qpCode": rowData[2], "isNil": eval(rowData[3]),
+                     "receivedDate": datetime.strptime(rowData[4], '%a %b %d %Y'), "messenger": rowData[5],
+                     "collegeName": rowData[6], "remarks": str(rowData[7])}
+            for doc in collection.find({'_id': ObjectId(query['_id'])}, {'_id': 0}):
+                for key in doc.keys():
+                    if query[key] != doc[key]:
+                        print("Updated", {"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
+                        collection.update_one({"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
+        self.signals.finished.emit()
+
+class InfiniteProgressBar(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Loading")
+        self.setGeometry(100, 100, 300, 100)
+
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+
+        self.layout = QVBoxLayout()
+        self.central_widget.setLayout(self.layout)
+
+        self.label = QLabel("Loading...")
+        self.label.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.label)
+
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setRange(0, 0)
+        self.layout.addWidget(self.progress_bar)
+        self.move_to_center()
+
+    def showEvent(self, event):
+        # Center the window when shown
+        super().showEvent(event)
+        self.move_to_center()
+
+    def move_to_center(self):
+        # Center the window on the screen
+        frame_geometry = self.frameGeometry()
+        center_point = QApplication.primaryScreen().availableGeometry().center()
+        frame_geometry.moveCenter(center_point)
+        self.move(frame_geometry.topLeft())
+
+    def hide_progress_bar(self):
+        self.close()
+
+class DatabaseThread(QThread):
+    status_signal = pyqtSignal(bool)
+
+    def run(self):
+        while True:
+            retruned_siganl = db.check_db_connection()
+            self.status_signal.emit(retruned_siganl)
+            self.msleep(10000)  
 
 class RecentDataWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -48,6 +116,7 @@ class RecentDataWindow(QtWidgets.QWidget):
 
         # Buttons Layout
         buttons_layout = QtWidgets.QHBoxLayout()
+        self.progress_bar_window = InfiniteProgressBar(parent=self)
 
         # Fetch Button
         self.fetch_button = QtWidgets.QPushButton('Fetch Recent Data', self)
@@ -61,8 +130,8 @@ class RecentDataWindow(QtWidgets.QWidget):
 
         # Update Button
         self.update_button = QtWidgets.QPushButton('Update Changes', self)
-        # self.update_button.clicked.connect(self.update_changes)
-        self.update_button.clicked.connect(self.update)
+        self.update_button.clicked.connect(self.update_changes)
+        # self.update_button.clicked.connect(self.update)
         buttons_layout.addWidget(self.update_button)
 
         layout.addLayout(buttons_layout)
@@ -81,7 +150,6 @@ class RecentDataWindow(QtWidgets.QWidget):
         self.end_date_edit.setDateTime(QtCore.QDateTime.currentDateTime())
         self.end_date_edit.setEnabled(False)
         
-
         # Create a new QHBoxLayout to accommodate the labels and QDateEdits
         self.date_layout = QtWidgets.QHBoxLayout()
 
@@ -124,7 +192,6 @@ class RecentDataWindow(QtWidgets.QWidget):
         self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
         self.leSearchTable.textChanged.connect(self.search)
 
-
         # Table View
         self.table = QtWidgets.QTableWidget(self)
         self.table.setColumnCount(9)
@@ -160,24 +227,49 @@ class RecentDataWindow(QtWidgets.QWidget):
 
         layout.addLayout(self.Hlayout)
 
-
         self.setLayout(layout)
         self.resize(1000, 800)
-        self.fetch_recent_data()
 
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_status)
-        interval = 5000
-        self.timer.start(interval)
+        self.db_thread = DatabaseThread()
+        self.db_thread.status_signal.connect(self.handle_db_status)
+        self.db_thread.start()
 
-    def update_status(self):
-        db_status = db.check_db_connection()
-        if db_status:
+        self.connect_to_db()
+        
+        
+    def connect_to_db(self):
+        try:
+            self.fetch_recent_data()
+        except Exception as e:
+            self.progress_bar_window.hide_progress_bar()
+            reply = QMessageBox.question(self, 'Database Error', 'Database connection failed. Try again?',
+                                         QMessageBox.Yes | QMessageBox.Cancel, QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:    
+                self.connect_to_db()
+            elif reply == QMessageBox.Cancel or reply == QMessageBox.No:
+                self.close()
+
+    def show_progress_bar(self):
+        self.progress_bar_window = InfiniteProgressBar(parent=self)
+        self.progress_bar_window.show()
+    
+    def change_status_ui(self, retruned_siganl):
+        print("DB Status:",retruned_siganl)
+        db_status = retruned_siganl
+        if retruned_siganl:
             self.pixmap = QtGui.QPixmap("./db_okay.png")
             self.db_label.setPixmap(self.pixmap)
-        else:
+        elif retruned_siganl == 'Checking':
+            self.pixmap = QtGui.QPixmap("./db_checking.png")
+            self.db_label.setPixmap(self.pixmap)
+        else :
             self.pixmap = QtGui.QPixmap("./db_failed.png")
             self.db_label.setPixmap(self.pixmap)
+        return retruned_siganl
+
+    def handle_db_status(self, retruned_siganl):
+        db_status = retruned_siganl
+        self.change_status_ui(retruned_siganl)
     
     def sort_columns(self, column_index):
         column_labels = [self.table.horizontalHeaderItem(i).text().replace('▼ ','').replace('▲ ','') for i in range(9)]
@@ -275,9 +367,9 @@ class RecentDataWindow(QtWidgets.QWidget):
         return oid_yesterday_10am
 
     def fetch_recent_data(self):
+        self.progress_bar_window.show()
         self.table.clearContents()
         self.table.setRowCount(0)
- 
 
         doc = collection.find_one(sort=[("_id", -1)])  # Get the last added document
         last_oid = doc["_id"]
@@ -316,6 +408,7 @@ class RecentDataWindow(QtWidgets.QWidget):
             self.table.setItem(rowPosition, 6, QtWidgets.QTableWidgetItem(clgName))
             self.table.setItem(rowPosition, 7, QtWidgets.QTableWidgetItem(remarks))
             self.table.setItem(rowPosition, 8, QtWidgets.QTableWidgetItem(str(data['_id'])))
+        self.progress_bar_window.hide_progress_bar()
 
 
     def delete_selected_rows(self):
@@ -336,27 +429,47 @@ class RecentDataWindow(QtWidgets.QWidget):
             QtWidgets.QMessageBox.information(self, 'Success', 'Selected rows deleted successfully!')
 
     def update_changes(self):
+        
         def add_data_to_db(self):
             confirmation = QtWidgets.QMessageBox.question(self, 'Confirmation', 'Are you sure you want to save the changes?',
                                                       QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
             if confirmation == QtWidgets.QMessageBox.Yes:
-                keys = ["_id", "qpSeries", "qpCode", "receivedDate", "messenger", "collegeName", "isNull", "remarks"]
-                for row in range(self.table.rowCount()):
-                    updated_data = {key: self.table.item(row, col).text() for col, key in enumerate(keys)}
-                    updated_data["_id"] = ObjectId(updated_data["_id"])
-                    collection.replace_one({"_id": updated_data["_id"]}, updated_data)
-
-                QtWidgets.QMessageBox.information(self, 'Success', 'Changes saved successfully!')
-
-        if db.check_db_connection():
+                self.update()
+                self.progress_bar_window.show()
+        if db_status:
             add_data_to_db(self)
         else:
             reply = QMessageBox.question(self, 'Database Error', 'Database connection failed. Try again?',
                                          QMessageBox.Yes | QMessageBox.Cancel, QMessageBox.Cancel)
-            if reply == QMessageBox.Yes:
+            if reply == QMessageBox.Yes:    
                 update_changes(self)
     
     def update(self):
+        rowCount = self.table.rowCount()
+        columnCount = self.table.columnCount()
+        data = []
+        for row in range(rowCount):
+            rowData = []
+            for column in range(columnCount):
+                widgetItem = self.table.item(row, column)
+                if column == 2:
+                    rowData.append(widgetItem.text())
+                elif widgetItem and widgetItem.text:
+                    rowData.append(widgetItem.text())
+                else:
+                    rowData.append('NULL')
+            data.append(rowData)
+        
+        # Create task and run in a separate thread
+        task = UpdateDatabaseTask(data)
+        task.signals.finished.connect(self.on_update_finished)
+        QThreadPool.globalInstance().start(task)
+
+    def on_update_finished(self):
+        self.progress_bar_window.hide_progress_bar()
+        QtWidgets.QMessageBox.information(self, 'Success', 'Changes saved successfully!')
+
+    def update_old(self):
         rowCount = self.table.rowCount()
         columnCount = self.table.columnCount()
         finalData = []
@@ -384,48 +497,8 @@ class RecentDataWindow(QtWidgets.QWidget):
                 for key in doc.keys():
                     if query[key] != doc[key]:
                         collection.update_one({"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
-
-    def update_database_changes(self):
-        # 1. Retrieve Data from the Table
-        table_data = []
-        for row in range(self.table.rowCount()):
-            row_data = {}
-            for col in range(self.table.columnCount()):
-                item = self.table.item(row, col)
-                if item:
-                    header = self.table.horizontalHeaderItem(col).text()
-                    row_data[header] = item.text()
-                    # print(row_data,'\n')
-            table_data.append(row_data)
-
-        db_data = list(collection.find({}))
-
-        # 3. Compare the Data
-        rows_to_update = []
-        for t_data, db_data_row in zip(table_data, db_data):
-            differences = {}
-            for key, value in t_data.items():   
-                print(key,value, type(value))
-                if key !='_id':
-                    if db_data_row.get(key) != value:
-                        differences[key] = value
-                    if differences:
-                        # print(differences)
-                        rows_to_update.append({"_id": db_data_row["_id"], "changes": differences})
-                elif key == 'isNull':
-                    print(key,value)
-                    if db_data_row.get(key) != value or db_data_row.get(key) != bool(value):
-                        differences[key] = value
-                    if differences:
-                        # print(differences)
-                        rows_to_update.append({"_id": db_data_row["_id"], "changes": differences})
-
-        # 4. Update the Database
-        for row_update in rows_to_update:
-            # print(row_update)
-            pass
-            # collection.update_one({"_id": row_update["_id"]}, {"$set": row_update["changes"]})
-
+            self.progress_bar_window.hide_progress_bar()
+            self.completed_signal.emit()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
