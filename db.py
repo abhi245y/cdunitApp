@@ -22,7 +22,7 @@ with open(filename, 'r') as f:
     address = db_config['address']+':'+db_config['port']
 
 
-client = pymongo.MongoClient("mongodb://{}/".format(address))
+client = pymongo.MongoClient("mongodb://{}/".format(address),connectTimeoutMS=1000,serverSelectionTimeoutMS=1000)
 
 cdUnitDB = client["cd_unit"]
 
