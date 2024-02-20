@@ -51,7 +51,7 @@ class UpdateDatabaseTask(QRunnable):
             for doc in collection.find({'_id': ObjectId(query['_id'])}, {'_id': 0}):
                 for key in doc.keys():
                     if query[key] != doc[key]:
-                        print("Updated", {"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
+                        # print("Updated", {"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
                         collection.update_one({"_id": ObjectId(query['_id'])}, {"$set": {key: query[key]}})
         self.signals.finished.emit()
 
@@ -60,6 +60,7 @@ class InfiniteProgressBar(QMainWindow):
         super().__init__(parent)
         self.setWindowTitle("Loading")
         self.setGeometry(100, 100, 300, 100)
+        self.setWindowFlag(Qt.WindowStaysOnTopHint)
 
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
