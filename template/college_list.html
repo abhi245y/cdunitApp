@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"
+    />
+
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"
+    ></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+      <h1 class="text-3xl font-bold mb-4">College Information</h1>
+
+      <div class="table-wrap overflow-x-auto">
+        <table class="w-full sortable">
+          <thead>
+            <tr class="bg-gray-200 text-gray-600">
+              <th class="px-4 py-2">Center No</th>
+              <th class="px-4 py-2">College Name</th>
+              <th class="px-4 py-2">Last Received Date</th>
+              <th class="px-4 py-2">Route</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for college in colleges %}
+            <tr class="even:bg-gray-100 odd:bg-white">
+              <td class="px-4 py-2">{{ college["college_code"] }}</td>
+              <td class="px-4 py-2">{{ college["name"] }}</td>
+              <td class="px-4 py-2">{{ college["last_received_date"] }}</td>
+              <td class="px-4 py-2">{{ college["route"] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $(".sortable").DataTable({
+          // Enable sorting on all columns by default
+          order: [[0, "asc"]],
+        });
+      });
+    </script>
+  </body>
+</html>

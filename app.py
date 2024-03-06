@@ -38,6 +38,14 @@ def check_db_status():
 def view_bundles_page():
     return render_template("view_bundles.html")
 
+@app.route("/add-colleges", methods=['GET'])
+def add_collges_page():
+    return render_template("add_colleges.html")
+
+@app.route("/view-colleges", methods=['GET'])
+def view_collges_page():
+    return render_template("view_collges.html")
+
 @app.route("/api/load-table", methods=['POST'])
 def load_tables():
     def sort_keys(document, order):
