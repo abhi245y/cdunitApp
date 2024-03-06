@@ -80,8 +80,7 @@ def check_db_connection():
         return False
 
 def getAllBundles(query={}):
-    return cdUnitDB["bundleDetails"].find(query, {"_id": 0}).limit(100)
-
+    return cdUnitDB["bundleDetails"].find(query, {"_id": 0})
 def generateDummyData(total_iterations):
     dataConfig, messengersDetails = getConfig()
     messengers = [messenger['name'] for messenger in messengersDetails]

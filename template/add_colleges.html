@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <title>CD Unit</title>
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Add New College</h1>
+      <article>
+        <form name="college-entry-form">
+          <label>
+            College Name
+            <input name="college_name" placeholder="College Name" />
+          </label>
+          <div class="grid">
+            <label for="place"
+              >Place
+              <input id="place" placeholder="Place" />
+            </label>
+            <label for="route_name"
+              >Route Name
+              <input id="route_name" placeholder="Route Name" />
+            </label>
+            <label for="center_code"
+              >Center Code(If Provided)
+              <input
+                id="center_code"
+                type="number"
+                placeholder="Center Code"
+                value="0"
+              />
+            </label>
+          </div>
+          <input type="submit" />
+        </form>
+      </article>
+    </main>
+  </body>
+</html>

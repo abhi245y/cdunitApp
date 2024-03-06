@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
         tableBody.append(newRow);
       });
       $("#myTable").DataTable({
-        dom: "Pfrtip",
+        dom: "BfPrtp",
+        buttons: ["print"],
         searchPanes: {
           show: true,
           selectStyle: "dropdown",
