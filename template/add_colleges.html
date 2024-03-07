@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+    <script src="{{url_for('static', filename='scripts/modal.js')}}"></script>
     <title>CD Unit</title>
   </head>
 
@@ -59,15 +60,13 @@
       <h1>Add New College</h1>
       <article>
         <form name="college-entry-form">
-          <label>
-            College Name
-            <input
-              data-tooltip="Only Enter the name of the college excluding the place name from it."
-              name="college_name"
-              placeholder="College Name"
-              data-placement="bottom"
-            />
-          </label>
+          <label for="college_name"> College Name </label>
+          <input
+            name="college_name"
+            placeholder="College Name"
+            data-tooltip="Only Enter the name of the college excluding the place name from it."
+            data-placement="bottom"
+          />
           <div class="grid">
             <label for="place"
               >Place
@@ -98,9 +97,80 @@
               />
             </label>
           </div>
-          <input type="submit" />
+          <input
+            type="submit"
+            data-target="modal-duplicate"
+            onclick="toggleModal(event)"
+          />
         </form>
       </article>
     </main>
+
+    <dialog id="modal-duplicate">
+      <article>
+        <header>
+          <button
+            aria-label="Close"
+            rel="prev"
+            data-target="modal-duplicate"
+            onclick="toggleModal(event)"
+          ></button>
+          <h3>Warning</h3>
+        </header>
+        <h4>Similar Colleges Found!</h4>
+        <ul>
+          <li>Collge A</li>
+          <li>Collge B</li>
+          <li>Collge C</li>
+        </ul>
+        <footer>
+          <button
+            role="button"
+            class="secondary"
+            data-target="modal-duplicate"
+            onclick="toggleModal(event)"
+          >
+            Skip</button
+          ><button
+            autofocus
+            data-target="modal-duplicate"
+            onclick="toggleModal(event)"
+          >
+            Add Anway
+          </button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modal-confirm">
+      <article>
+        <header>
+          <button
+            aria-label="Close"
+            rel="prev"
+            data-target="modal-confirm"
+            onclick="toggleModal(event)"
+          ></button>
+          <h3>Confirm your action!</h3>
+        </header>
+        <p>Are you sure you want to add this college to the database?</p>
+        <footer>
+          <button
+            role="button"
+            class="secondary"
+            data-target="modal-confirm"
+            onclick="toggleModal(event)"
+          >
+            Cancel</button
+          ><button
+            autofocus
+            data-target="modal-confirm"
+            onclick="toggleModal(event)"
+          >
+            Confirm
+          </button>
+        </footer>
+      </article>
+    </dialog>
   </body>
 </html>
