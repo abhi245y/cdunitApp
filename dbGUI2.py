@@ -259,7 +259,7 @@ class RecentDataWindow(QtWidgets.QWidget):
         self.Hlayout.addWidget(self.bottomLineText)
 
         self.db_label = QtWidgets.QLabel()
-        self.pixmap = QtGui.QPixmap("./db_okay.png")
+        self.pixmap = QtGui.QPixmap("./data/db_okay.png")
         self.db_label.setPixmap(self.pixmap)
         self.Hlayout.addStretch()
         self.Hlayout.addWidget(self.db_label)
@@ -299,13 +299,13 @@ class RecentDataWindow(QtWidgets.QWidget):
     def change_status_ui(self, retruned_siganl):
         print("DB Status:", retruned_siganl)
         if retruned_siganl:
-            self.pixmap = QtGui.QPixmap("./db_okay.png")
+            self.pixmap = QtGui.QPixmap("./data/db_okay.png")
             self.db_label.setPixmap(self.pixmap)
         elif retruned_siganl == "Checking":
-            self.pixmap = QtGui.QPixmap("./db_checking.png")
+            self.pixmap = QtGui.QPixmap("./data/db_checking.png")
             self.db_label.setPixmap(self.pixmap)
         else:
-            self.pixmap = QtGui.QPixmap("./db_failed.png")
+            self.pixmap = QtGui.QPixmap("./data/db_failed.png")
             self.db_label.setPixmap(self.pixmap)
         return retruned_siganl
 
