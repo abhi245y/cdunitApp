@@ -1,37 +1,33 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 from threading import Thread
-from PyQt5.QtGui import  QIcon, QIntValidator
+from PyQt5.QtGui import QIcon, QIntValidator
 from PyQt5.QtCore import QSize
 from datetime import datetime
-from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem,QComboBox
-from qt_material import apply_stylesheet
+from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem
 import db
 import os
 import distro
 import json
 
-filename = 'db_config.json'
+filename = "db_config.json"
 
 if not os.path.exists(filename):
     # Create the dictionary with the desired keys and values
-    data = {
-        'address': '10.20.9.3',
-        'port': '27017',
-        'QT_QPA_PLATFORM': True
-    }
-    
+    data = {"address": "10.20.9.3", "port": "27017", "QT_QPA_PLATFORM": True}
+
     # Write the dictionary to a JSON file
-    with open(filename, 'w') as f:
+    with open(filename, "w") as f:
         json.dump(data, f)
 
-with open(filename, 'r') as f:
+with open(filename, "r") as f:
     db_config = json.load(f)
-    QT_QPA_PLATFORM_ENABLED = db_config['QT_QPA_PLATFORM']
+    QT_QPA_PLATFORM_ENABLED = db_config["QT_QPA_PLATFORM"]
 
-if QT_QPA_PLATFORM_ENABLED == True:
+if QT_QPA_PLATFORM_ENABLED is True:
     if distro.info()["id"] == "ubuntu" and distro.info()["version"] == "22.04":
         os.environ["QT_QPA_PLATFORM"] = "xcb"
+
 
 class Ui_AddBundleDetails(object):
     def setupUi(self, AddBundleDetails):
@@ -88,7 +84,9 @@ class Ui_AddBundleDetails(object):
         self.labelBundleSlipDate.setObjectName("labelBundleSlipDate")
         self.verticalLayout_6.addWidget(self.labelBundleSlipDate)
         self.deBundleSlipDate = QtWidgets.QDateEdit(self.gbSlipDetailsGroup)
-        self.deBundleSlipDate.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(2020, 1, 1), QtCore.QTime(0, 0, 0)))
+        self.deBundleSlipDate.setMinimumDateTime(
+            QtCore.QDateTime(QtCore.QDate(2020, 1, 1), QtCore.QTime(0, 0, 0))
+        )
         self.deBundleSlipDate.setCalendarPopup(True)
         self.deBundleSlipDate.setObjectName("deBundleSlipDate")
         self.verticalLayout_6.addWidget(self.deBundleSlipDate)
@@ -139,7 +137,9 @@ class Ui_AddBundleDetails(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setContentsMargins(-1, -1, 0, -1)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        spacerItem = QtWidgets.QSpacerItem(30, 16, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem = QtWidgets.QSpacerItem(
+            30, 16, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed
+        )
         self.verticalLayout_3.addItem(spacerItem)
         self.sbBundleMulti = QtWidgets.QSpinBox(self.gbSlipDetailsGroup)
         self.sbBundleMulti.setProperty("value", 1)
@@ -175,7 +175,9 @@ class Ui_AddBundleDetails(object):
         self.labelRemarks.setObjectName("labelRemarks")
         self.verticalLayout_12.addWidget(self.labelRemarks)
         self.pteRemarks = QtWidgets.QPlainTextEdit(self.gbSlipDetailsGroup)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pteRemarks.sizePolicy().hasHeightForWidth())
@@ -235,7 +237,7 @@ class Ui_AddBundleDetails(object):
 
         self.deBundleSlipDate.setDateTime(QtCore.QDateTime.currentDateTime())
         icon = QIcon()
-        icon.addFile(u"data/icon.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile("data/icon.png", QSize(), QIcon.Normal, QIcon.Off)
         AddBundleDetails.setWindowIcon(icon)
         header = self.twBundleDetails.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
@@ -248,8 +250,12 @@ class Ui_AddBundleDetails(object):
 
         AddBundleDetails.keyPressEvent = self.pressEnter
 
-        self.twBundleDetails.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
-        self.twBundleDetails.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.twBundleDetails.setSelectionMode(
+            QtWidgets.QAbstractItemView.MultiSelection
+        )
+        self.twBundleDetails.setSelectionBehavior(
+            QtWidgets.QAbstractItemView.SelectRows
+        )
         self.cbCollegeList.setEnabled(False)
         self.loadComboBoxes()
         self.sortListThread()
@@ -265,23 +271,33 @@ class Ui_AddBundleDetails(object):
 
     def onEditTextChanged(self):
         text = self.cbCollegeList.currentText()
-        if str(text).endswith(" "): # Check if the text ends with a space
+        if str(text).endswith(" "):  # Check if the text ends with a space
             # Remove the trailing space
             text = text.strip()
             if text.isdigit():
                 id_number = int(text)
                 # Perform the database search using id_number here
-                matching_item = db.getCollegeNameUsingID('collegeList', 'Centre No', id_number)
+                matching_item = db.getCollegeNameUsingID(
+                    "collegeList", "Centre No", id_number
+                )
                 # Set the current text of the c ombo box to the fetched result
                 if matching_item is not None:
                     self.cbCollegeList.setCurrentText("")
-                    self.cbCollegeList.setCurrentText(matching_item['College Name'] + ' ' + matching_item['Place'])
-                    if matching_item['Route'] != self.cbRouteList.currentText():
-                        self.showMessage(QtWidgets.QMessageBox.Warning, "The selected college name is not included in {} Route. Please check the Route before saving.".format(self.cbRouteList.currentText()))
+                    self.cbCollegeList.setCurrentText(
+                        matching_item["College Name"] + " " + matching_item["Place"]
+                    )
+                    if matching_item["Route"] != self.cbRouteList.currentText():
+                        self.showMessage(
+                            QtWidgets.QMessageBox.Warning,
+                            "The selected college name is not included in {} Route. Please check the Route before saving.".format(
+                                self.cbRouteList.currentText()
+                            ),
+                        )
                 else:
-                    self.showMessage(QtWidgets.QMessageBox.Information, "Sorry College Not Found")
+                    self.showMessage(
+                        QtWidgets.QMessageBox.Information, "Sorry College Not Found"
+                    )
 
-    
     def popUpResponse(self, i):
         if i.text() == "OK":
             self.twBundleDetails.clearContents()
@@ -300,46 +316,67 @@ class Ui_AddBundleDetails(object):
         msgBox.exec_()
 
     def deleteSelectedRow(self):
-        selected_rows = list(set(index.row() for index in self.twBundleDetails.selectedIndexes()))
+        selected_rows = list(
+            set(index.row() for index in self.twBundleDetails.selectedIndexes())
+        )
         if not selected_rows:
-            QtWidgets.QMessageBox.warning(self.twBundleDetails, 'Warning', 'No rows selected!')
+            QtWidgets.QMessageBox.warning(
+                self.twBundleDetails, "Warning", "No rows selected!"
+            )
             return
 
-        confirmation = QtWidgets.QMessageBox.question(self.twBundleDetails, 'Confirmation', 'Are you sure you want to delete the selected rows?',
-                                              QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
-
+        confirmation = QtWidgets.QMessageBox.question(
+            self.twBundleDetails,
+            "Confirmation",
+            "Are you sure you want to delete the selected rows?",
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No,
+        )
 
         if confirmation == QtWidgets.QMessageBox.Yes:
-
             for row in sorted(selected_rows, reverse=True):
                 self.twBundleDetails.removeRow(row)
 
-            QtWidgets.QMessageBox.information(self.twBundleDetails, 'Success', 'Selected rows deleted successfully!')
+            QtWidgets.QMessageBox.information(
+                self.twBundleDetails, "Success", "Selected rows deleted successfully!"
+            )
 
     def pressEnter(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-            if self.cbCollegeList.currentText() and self.cbRouteList.currentText() and self.cbMessenger.currentText() and self.leQpCode.text() != "":
+            if (
+                self.cbCollegeList.currentText()
+                and self.cbRouteList.currentText()
+                and self.cbMessenger.currentText()
+                and self.leQpCode.text() != ""
+            ):
                 qpSeries = self.cbQpSeries.currentText()
                 qpCode = self.leQpCode.text()
                 slipDate = self.deBundleSlipDate.date().toString()
                 messengerName = self.cbMessenger.currentText()
                 clgName = self.cbCollegeList.currentText()
-                
-                query = {"qpSeries": qpSeries, "qpCode": qpCode, "isNil": bool(self.ticBoxNillStatment.checkState()),
-                              "receivedDate": datetime.strptime(slipDate, '%a %b %d %Y'), "messenger": messengerName,
-                              "collegeName": clgName}
-                              
+
+                query = {
+                    "qpSeries": qpSeries,
+                    "qpCode": qpCode,
+                    "isNil": bool(self.ticBoxNillStatment.checkState()),
+                    "receivedDate": datetime.strptime(slipDate, "%a %b %d %Y"),
+                    "messenger": messengerName,
+                    "collegeName": clgName,
+                }
+
                 if db.checkForBundles("bundleDetails", query) is False:
                     self.addDataToTable()
                     # self.leQpCode.clear()
                     # self.sbBundleMulti.setValue(1)
                 else:
-                     # Bundle already exists, ask user whether they want to add it anyway
+                    # Bundle already exists, ask user whether they want to add it anyway
                     msg_box = QtWidgets.QMessageBox()
                     msg_box.setIcon(QtWidgets.QMessageBox.Warning)
                     msg_box.setText("The bundle is already present in the database.")
                     msg_box.setInformativeText("Do you want to add it anyway?")
-                    msg_box.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                    msg_box.setStandardButtons(
+                        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
+                    )
                     response = msg_box.exec_()
 
                     if response == QtWidgets.QMessageBox.Yes:
@@ -350,10 +387,14 @@ class Ui_AddBundleDetails(object):
                     else:
                         # User chose not to add the bundle, show a message
                         print("Bundle Already Present: ", query)
-                        self.showMessage(QtWidgets.QMessageBox.critical, "Already Present")
-        
+                        self.showMessage(
+                            QtWidgets.QMessageBox.critical, "Already Present"
+                        )
+
             else:
-                self.showMessage(QMessageBox.Warning, "Please Enter details in all fields", "Error")
+                self.showMessage(
+                    QMessageBox.Warning, "Please Enter details in all fields", "Error"
+                )
 
     @staticmethod
     def showMessage(msgType, data, titleName="Info"):
@@ -392,10 +433,16 @@ class Ui_AddBundleDetails(object):
                         # print(widgetItem.text())
                         rowData.append(widgetItem.text())
                     else:
-                        rowData.append('NULL')
-                query = {"qpSeries": rowData[0], "qpCode": rowData[1], "isNil": bool(rowData[2]),
-                              "receivedDate": datetime.strptime(rowData[3], '%a %b %d %Y'), "messenger": rowData[4],
-                              "collegeName": rowData[5],"remarks":str(rowData[6])}
+                        rowData.append("NULL")
+                query = {
+                    "qpSeries": rowData[0],
+                    "qpCode": rowData[1],
+                    "isNil": bool(rowData[2]),
+                    "receivedDate": datetime.strptime(rowData[3], "%a %b %d %Y"),
+                    "messenger": rowData[4],
+                    "collegeName": rowData[5],
+                    "remarks": str(rowData[6]),
+                }
 
                 finalData.append(query)
 
@@ -403,7 +450,9 @@ class Ui_AddBundleDetails(object):
             resCode = ""
             print(finalData)
             if result is True:
-                self.showMessage(QMessageBox.Information, "Collection Added To Database")
+                self.showMessage(
+                    QMessageBox.Information, "Collection Added To Database"
+                )
                 self.ticBoxNillStatment.setCheckState(False)
                 self.twBundleDetails.clearContents()
                 self.twBundleDetails.setRowCount(0)
@@ -417,7 +466,9 @@ class Ui_AddBundleDetails(object):
 
     def sortCollegeListBasedOnRoute(self):
         self.cbCollegeList.clear()
-        clgList = db.sortAndGetData("collegeList", "Route", self.cbRouteList.currentText())
+        clgList = db.sortAndGetData(
+            "collegeList", "Route", self.cbRouteList.currentText()
+        )
         for data in clgList:
             self.cbCollegeList.addItem(data["College Name"] + " " + data["Place"])
 
@@ -429,11 +480,10 @@ class Ui_AddBundleDetails(object):
         for messenger in messengers:
             self.cbMessenger.addItem(messenger["name"])
 
-        self.cbQpSeries.addItems(configs['qp_series'])
-        self.cbRouteList.addItems(configs['routes'])
+        self.cbQpSeries.addItems(configs["qp_series"])
+        self.cbRouteList.addItems(configs["routes"])
 
     def addDataToTable(self):
-
         qpSeries = self.cbQpSeries.currentText()
         qpCode = self.leQpCode.text()
         slipDate = self.deBundleSlipDate.date().toString()
@@ -442,9 +492,8 @@ class Ui_AddBundleDetails(object):
         bundlesMulti = self.sbBundleMulti.value()
         remarks = self.pteRemarks.toPlainText()
 
-        if len(qpCode) >4:
-            remarks = remarks+" (SLCM Bundle)"
-
+        if len(qpCode) > 4:
+            remarks = remarks + " (SLCM Bundle)"
 
         isNilCheckBox = QTableWidgetItem()
         isNilCheckBox.setTextAlignment(Qt.AlignHCenter)
@@ -452,17 +501,31 @@ class Ui_AddBundleDetails(object):
         isNilCheckBox.setCheckState(self.ticBoxNillStatment.checkState())
 
         i = 1
-        while i<=bundlesMulti:
+        while i <= bundlesMulti:
             rowPosition = self.twBundleDetails.rowCount()
 
             self.twBundleDetails.setRowCount(rowPosition + 1)
-            self.twBundleDetails.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries))
-            self.twBundleDetails.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode))
-            self.twBundleDetails.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox))
-            self.twBundleDetails.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate))
-            self.twBundleDetails.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName))
-            self.twBundleDetails.setItem(rowPosition, 5, QtWidgets.QTableWidgetItem(clgName))
-            self.twBundleDetails.setItem(rowPosition, 6, QtWidgets.QTableWidgetItem(remarks))
+            self.twBundleDetails.setItem(
+                rowPosition, 0, QtWidgets.QTableWidgetItem(qpSeries)
+            )
+            self.twBundleDetails.setItem(
+                rowPosition, 1, QtWidgets.QTableWidgetItem(qpCode)
+            )
+            self.twBundleDetails.setItem(
+                rowPosition, 2, QtWidgets.QTableWidgetItem(isNilCheckBox)
+            )
+            self.twBundleDetails.setItem(
+                rowPosition, 3, QtWidgets.QTableWidgetItem(slipDate)
+            )
+            self.twBundleDetails.setItem(
+                rowPosition, 4, QtWidgets.QTableWidgetItem(messengerName)
+            )
+            self.twBundleDetails.setItem(
+                rowPosition, 5, QtWidgets.QTableWidgetItem(clgName)
+            )
+            self.twBundleDetails.setItem(
+                rowPosition, 6, QtWidgets.QTableWidgetItem(remarks)
+            )
             i += 1
         self.twBundleDetails.scrollToBottom()
         self.leQpCode.clear()
@@ -470,28 +533,50 @@ class Ui_AddBundleDetails(object):
 
     def retranslateUi(self, AddBundleDetails):
         _translate = QtCore.QCoreApplication.translate
-        AddBundleDetails.setWindowTitle(_translate("AddBundleDetails", "Add Bundles To Collection"))
-        self.gbSlipDetailsGroup.setTitle(_translate("AddBundleDetails", "Collection Slip Details"))
+        AddBundleDetails.setWindowTitle(
+            _translate("AddBundleDetails", "Add Bundles To Collection")
+        )
+        self.gbSlipDetailsGroup.setTitle(
+            _translate("AddBundleDetails", "Collection Slip Details")
+        )
         self.lablelRoute.setText(_translate("AddBundleDetails", "Select Route"))
         self.labelCollegeList.setText(_translate("AddBundleDetails", "Select College"))
-        self.cbCollegeList.setStatusTip(_translate("AddBundleDetails", "Enter College Name"))
-        self.cbCollegeList.setPlaceholderText(_translate("AddBundleDetails", "Select College Name"))
-        self.labelBundleSlipDate.setText(_translate("AddBundleDetails", "Select Received Date"))
-        self.labelMessengerList.setText(_translate("AddBundleDetails", "Select Messenger"))
-        self.cbMessenger.setStatusTip(_translate("AddBundleDetails", "Enter Messenger Name"))
-        self.cbMessenger.setPlaceholderText(_translate("AddBundleDetails", "Select Messenger"))
-        self.labelQpSeriesList.setText(_translate("AddBundleDetails", "Select QP Series"))
+        self.cbCollegeList.setStatusTip(
+            _translate("AddBundleDetails", "Enter College Name")
+        )
+        self.cbCollegeList.setPlaceholderText(
+            _translate("AddBundleDetails", "Select College Name")
+        )
+        self.labelBundleSlipDate.setText(
+            _translate("AddBundleDetails", "Select Received Date")
+        )
+        self.labelMessengerList.setText(
+            _translate("AddBundleDetails", "Select Messenger")
+        )
+        self.cbMessenger.setStatusTip(
+            _translate("AddBundleDetails", "Enter Messenger Name")
+        )
+        self.cbMessenger.setPlaceholderText(
+            _translate("AddBundleDetails", "Select Messenger")
+        )
+        self.labelQpSeriesList.setText(
+            _translate("AddBundleDetails", "Select QP Series")
+        )
         self.cbQpSeries.setAccessibleName(_translate("AddBundleDetails", "QP Series"))
         self.cbQpSeries.setPlaceholderText(_translate("AddBundleDetails", "Test"))
         self.labelQpCode.setText(_translate("AddBundleDetails", "Enter QP Code"))
         self.leQpCode.setStatusTip(_translate("AddBundleDetails", "Enter QP Code"))
-        self.ticBoxNillStatment.setText(_translate("AddBundleDetails", "Check If Bundle Is Nil"))
+        self.ticBoxNillStatment.setText(
+            _translate("AddBundleDetails", "Check If Bundle Is Nil")
+        )
         self.leQpCode.setValidator(QIntValidator(1, 999999999))
         self.leQpCode.setMaxLength(8)
         self.leQpCode.setPlaceholderText("Enter QP Code")
         self.btnAddQpCode.setText(_translate("AddBundleDetails", "Add To List"))
         self.labelRemarks.setText(_translate("AddBundleDetails", "Remarks(If any)"))
-        self.leSearchTable.setPlaceholderText(_translate("AddBundleDetails", "Enter Data To Search"))
+        self.leSearchTable.setPlaceholderText(
+            _translate("AddBundleDetails", "Enter Data To Search")
+        )
         item = self.twBundleDetails.horizontalHeaderItem(0)
         item.setText(_translate("AddBundleDetails", "Series"))
         item = self.twBundleDetails.horizontalHeaderItem(1)
@@ -508,7 +593,9 @@ class Ui_AddBundleDetails(object):
         item.setText(_translate("AddBundleDetails", "Remarks"))
         self.btnSubmit.setText(_translate("AddBundleDetails", "Submit"))
         self.btnClearTable.setText(_translate("AddBundleDetails", "Clear Table"))
-        self.btnDeleteSelectedRow.setText(_translate("AddBundleDetails", "Delete Selected Rows"))
+        self.btnDeleteSelectedRow.setText(
+            _translate("AddBundleDetails", "Delete Selected Rows")
+        )
 
 
 if __name__ == "__main__":
@@ -518,6 +605,5 @@ if __name__ == "__main__":
     AddBundleDetails = QtWidgets.QMainWindow()
     ui = Ui_AddBundleDetails()
     ui.setupUi(AddBundleDetails)
-    # apply_stylesheet(app, theme='dark_teal.xml')
     AddBundleDetails.show()
     sys.exit(app.exec_())

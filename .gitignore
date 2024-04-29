@@ -2,7 +2,4 @@ __pycache__/
 build/
 dist/
 env/
-centeralUI.spec/
-addBundlesUI.spec/
-test.ui/
 .gitignore/
